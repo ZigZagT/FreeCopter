@@ -3,10 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>Ocean.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>AF4949AC1B3C81AA008ADED0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFB47D121B3F1FEF008BE2BC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
