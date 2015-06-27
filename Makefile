@@ -1,2 +1,2 @@
-a.out: main.cpp
-	g++ -std=c++11 main.cpp
+dest/a.out: src/main.cpp
+	g++ -std=c++11 $< -o $@

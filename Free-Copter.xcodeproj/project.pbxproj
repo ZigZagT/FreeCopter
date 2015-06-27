@@ -9,8 +9,8 @@
 /* Begin PBXFileReference section */
 		AFB47D0E1B3F152E008BE2BC /* dest */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dest; sourceTree = "<group>"; };
 		AFB47D0F1B3F152E008BE2BC /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
-		AFB47D101B3F152E008BE2BC /* deploy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = deploy; sourceTree = "<group>"; };
-		AFB47D111B3F152E008BE2BC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		AFB47D101B3F152E008BE2BC /* tools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tools; sourceTree = "<group>"; };
+		AFB47D111B3F152E008BE2BC /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -19,7 +19,7 @@
 			children = (
 				AFB47D0E1B3F152E008BE2BC /* dest */,
 				AFB47D0F1B3F152E008BE2BC /* src */,
-				AFB47D101B3F152E008BE2BC /* deploy */,
+				AFB47D101B3F152E008BE2BC /* tools */,
 				AFB47D111B3F152E008BE2BC /* Makefile */,
 			);
 			sourceTree = "<group>";
@@ -27,19 +27,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		AF4949AC1B3C81AA008ADED0 /* freecopter */ = {
+		AFB47D121B3F1FEF008BE2BC /* Ocean */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = AF4949AD1B3C81AA008ADED0 /* Build configuration list for PBXLegacyTarget "freecopter" */;
+			buildConfigurationList = AFB47D131B3F1FEF008BE2BC /* Build configuration list for PBXLegacyTarget "Ocean" */;
 			buildPhases = (
 			);
-			buildToolPath = "/Users/master/GitHub/Free-Copter/Build.sh";
+			buildToolPath = "/Users/master/GitHub/Free-Copter/tools/build.sh";
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = freecopter;
-			passBuildSettingsInEnvironment = 0;
-			productName = freecopter;
+			name = Ocean;
+			passBuildSettingsInEnvironment = 1;
+			productName = Ocean;
 		};
 /* End PBXLegacyTarget section */
 
@@ -49,7 +49,7 @@
 			attributes = {
 				LastUpgradeCheck = 0630;
 				TargetAttributes = {
-					AF4949AC1B3C81AA008ADED0 = {
+					AFB47D121B3F1FEF008BE2BC = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
 				};
@@ -65,13 +65,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AF4949AC1B3C81AA008ADED0 /* freecopter */,
+				AFB47D121B3F1FEF008BE2BC /* Ocean */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		AF4949AE1B3C81AA008ADED0 /* Debug */ = {
+		AFB47D141B3F1FEF008BE2BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -118,7 +118,7 @@
 			};
 			name = Debug;
 		};
-		AF4949AF1B3C81AA008ADED0 /* Release */ = {
+		AFB47D151B3F1FEF008BE2BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -171,11 +171,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF4949AD1B3C81AA008ADED0 /* Build configuration list for PBXLegacyTarget "freecopter" */ = {
+		AFB47D131B3F1FEF008BE2BC /* Build configuration list for PBXLegacyTarget "Ocean" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AF4949AE1B3C81AA008ADED0 /* Debug */,
-				AF4949AF1B3C81AA008ADED0 /* Release */,
+				AFB47D141B3F1FEF008BE2BC /* Debug */,
+				AFB47D151B3F1FEF008BE2BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
