@@ -35,4 +35,4 @@ log "PATH:      $PATH"
 
 ssh root@ocean.local -p 22 -i ~/.ssh/id_rsa "if [ ! -d $RemoteDir ]; then mkdir $RemoteDir; fi"
 scp -r -P 22 -i ~/.ssh/id_rsa ./* root@ocean.local:$RemoteDir
-ssh root@ocean.local -p 22 -i ~/.ssh/id_rsa "cd $RemoteDir; make"
+ssh root@ocean.local -p 22 -i ~/.ssh/id_rsa "cd $RemoteDir; make $1;"

@@ -10,7 +10,7 @@
 		AFB47D0E1B3F152E008BE2BC /* dest */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dest; sourceTree = "<group>"; };
 		AFB47D0F1B3F152E008BE2BC /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		AFB47D101B3F152E008BE2BC /* tools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tools; sourceTree = "<group>"; };
-		AFB47D111B3F152E008BE2BC /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
+		AFB47D111B3F152E008BE2BC /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile; sourceTree = "<group>"; usesTabs = 1; xcLanguageSpecificationIdentifier = "<none>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
