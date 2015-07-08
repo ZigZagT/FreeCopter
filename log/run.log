@@ -565,3 +565,108 @@ Wed Jul  8 17:14:47 CST 2015 :
 	Args:      
 	PID:       8437
 	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 17:30:06 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-WGQWnb
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       8691
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 17:32:30 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-RY8n3s
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       8736
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 17:38:11 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-p5GqG9
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       8828
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 17:56:36 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-a4p3z8
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       8914
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 17:58:43 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-pgWZO0
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       8977
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:03:00 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-SV9RD4
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9049
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:07:19 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-1Zxje5
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9141
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:13:10 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-sc50MU
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9223
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:13:43 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-WHTJkY
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9252
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:16:03 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-Su7dsh
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9309
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:18:34 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-WbUyzu
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9366
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:21:04 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-pT2VdZ
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9430
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:24:13 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-8QhavS
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9503
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:32:03 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-Bkyss0
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9618
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 18:35:32 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-8DOm0S
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       9694
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin

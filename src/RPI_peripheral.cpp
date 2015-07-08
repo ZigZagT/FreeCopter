@@ -8,7 +8,7 @@
 
 #include "RPI_peripheral.h"
 
-struct bcm2708_peripheral gpio = {GPIO_BASE};
+volatile struct bcm2708_peripheral gpio = {GPIO_BASE};
 
 // Exposes the physical address defined in the passed structure using mmap on /dev/mem
 int map_peripheral(struct bcm2708_peripheral *p)
@@ -54,16 +54,14 @@ void gpio_control_start() {
     const unsigned init_output_pin_init = ~(0b111111111111111);
     const unsigned init_output_pin_set =    0b001001001001001;
     gpio.addr[0] &= init_input_pin_init;
-    gpio.addr[2] &= init_output_pin_init;
+    //gpio.addr[2] &= init_output_pin_init;
     //gpio.addr[2] |= init_output_pin_set;
-    for (int i = 0; i < 5; ++i) {
-        gpio.addr[2] |= (1 << (7 * i));
-    }
-    
+    gpio.addr[2] &= ~0b111;
+    gpio.addr[2] |= 1;
 
     const unsigned man_input_pin_mask = (0b11111111 << 2);
     const unsigned man_output_pin_mask = (0b11111 << 20);
-    unsigned temp = 0;
+    volatile unsigned temp = 0;
     while (1) {
         std::cout << std::endl;
         std::cout << "gpio13: \t" << unsigned_to_binary(gpio.addr[13]) << std::endl;
@@ -71,14 +69,42 @@ void gpio_control_start() {
         std::cout << "temp: \t\t" << unsigned_to_binary(temp) << std::endl;
         std::cout << "set temp: \t" << unsigned_to_binary((temp << 18) & man_output_pin_mask) << std::endl;
         std::cout << "clr temp: \t" << unsigned_to_binary((~temp << 18) & man_output_pin_mask) << std::endl;
-        gpio.addr[7] |= ((temp << 18) & man_output_pin_mask);
-        gpio.addr[10] |= ((~temp << 18) & man_output_pin_mask);
+        //gpio.addr[7] |= ((temp << 18) & man_output_pin_mask);
+        //gpio.addr[10] |= ((~(temp << 18)) & man_output_pin_mask);
+        if ((temp & (1 << 2)) != 0) {
+            std::cout << "set pin 20" << std::endl;
+            //gpio.addr[7] |= ((temp << 18) & man_output_pin_mask);
+            gpio.addr[7] |= 1 << 20;
+            gpio.addr[10] |= 0;
+        } else {
+            std::cout << "clr pin 20" << std::endl;
+            //gpio.addr[10] |= ((~temp << 18) & man_output_pin_mask);
+            gpio.addr[10] |= 1 << 20;
+            gpio.addr[7] |= 0;
+        }
+        //gpio.addr[7] |= ((temp << 18) & (man_output_pin_mask & 1 << 20));
+        //gpio.addr[10] |= ((~temp << 18) & (man_output_pin_mask & 1 << 20));
         //gpio.addr[7] |= ((gpio.addr[13] << 18) & man_output_pin_mask); // 7 is set unsigned, 13 is read unsigned.
         //gpio.addr[10] |= ((~gpio.addr[13] << 18) & man_output_pin_mask); // 10 is clear unsigned
         std::this_thread::sleep_for (std::chrono::seconds(1));
     }
 #endif
     
+#ifdef test_pin20_output
+    gpio.addr[2] &= ~0b111;
+    gpio.addr[2] |= 1;
+    bool status = true;
+    while (1) {
+        if (status) {
+            gpio.addr[7] |= 1 << 20;
+            status = false;
+        } else {
+            gpio.addr[10] |= 1<<20;
+            status = true;
+        }
+        std::this_thread::sleep_for (std::chrono::seconds(3));
+    }
+#endif
 #ifdef route_pin17_to_pin27
     // const unsigned pin_mode_mask = 0xE00000; // pin 17
     // const unsigned pin17_read_mask = 0x20000;
