@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		AF894A5F1B48DA6100E2BA64 /* archive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = archive; sourceTree = "<group>"; };
 		AFB47D0E1B3F152E008BE2BC /* dest */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dest; sourceTree = "<group>"; };
 		AFB47D0F1B3F152E008BE2BC /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		AFB47D101B3F152E008BE2BC /* tools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tools; sourceTree = "<group>"; };
@@ -21,6 +22,7 @@
 				AFB47D0F1B3F152E008BE2BC /* src */,
 				AFB47D101B3F152E008BE2BC /* tools */,
 				AFB47D111B3F152E008BE2BC /* Makefile */,
+				AF894A5F1B48DA6100E2BA64 /* archive */,
 			);
 			sourceTree = "<group>";
 		};
@@ -47,7 +49,7 @@
 		AFBC050C1B3C7BEB0026061F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				TargetAttributes = {
 					AFB47D121B3F1FEF008BE2BC = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -159,6 +161,7 @@
 		AFBC05101B3C7BEB0026061F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
