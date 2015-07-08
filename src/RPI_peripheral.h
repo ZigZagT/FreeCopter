@@ -35,7 +35,7 @@ struct bcm2708_peripheral {
 };
 
 
-extern volatile struct bcm2708_peripheral gpio;  // They have to be found somewhere, but can't be in the header
+extern struct bcm2708_peripheral gpio;  // They have to be found somewhere, but can't be in the header
 
 
 int map_peripheral(struct bcm2708_peripheral *p);

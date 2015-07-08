@@ -8,7 +8,7 @@
 
 #include "RPI_peripheral.h"
 
-volatile struct bcm2708_peripheral gpio = {GPIO_BASE};
+struct bcm2708_peripheral gpio = {GPIO_BASE};
 
 // Exposes the physical address defined in the passed structure using mmap on /dev/mem
 int map_peripheral(struct bcm2708_peripheral *p)
@@ -69,19 +69,8 @@ void gpio_control_start() {
         std::cout << "temp: \t\t" << unsigned_to_binary(temp) << std::endl;
         std::cout << "set temp: \t" << unsigned_to_binary((temp << 18) & man_output_pin_mask) << std::endl;
         std::cout << "clr temp: \t" << unsigned_to_binary((~temp << 18) & man_output_pin_mask) << std::endl;
-        //gpio.addr[7] |= ((temp << 18) & man_output_pin_mask);
-        //gpio.addr[10] |= ((~(temp << 18)) & man_output_pin_mask);
-        if ((temp & (1 << 2)) != 0) {
-            std::cout << "set pin 20" << std::endl;
-            //gpio.addr[7] |= ((temp << 18) & man_output_pin_mask);
-            gpio.addr[7] |= 1 << 20;
-            gpio.addr[10] |= 0;
-        } else {
-            std::cout << "clr pin 20" << std::endl;
-            //gpio.addr[10] |= ((~temp << 18) & man_output_pin_mask);
-            gpio.addr[10] |= 1 << 20;
-            gpio.addr[7] |= 0;
-        }
+        gpio.addr[7] = ((temp << 18) & man_output_pin_mask); // the SET,CLR register is read only, so you should use = instead of |=
+        gpio.addr[10] = ((~(temp << 18)) & man_output_pin_mask);
         //gpio.addr[7] |= ((temp << 18) & (man_output_pin_mask & 1 << 20));
         //gpio.addr[10] |= ((~temp << 18) & (man_output_pin_mask & 1 << 20));
         //gpio.addr[7] |= ((gpio.addr[13] << 18) & man_output_pin_mask); // 7 is set unsigned, 13 is read unsigned.
