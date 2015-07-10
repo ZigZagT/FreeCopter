@@ -670,3 +670,52 @@ Wed Jul  8 18:35:32 CST 2015 :
 	Args:      
 	PID:       9694
 	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Wed Jul  8 22:48:17 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-E9Ieoc
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       10273
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 13:23:17 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-ZN2WoM
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1210
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 13:24:21 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-aCfA6s
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1245
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 13:28:07 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-3xGHmb
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1302
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 13:31:59 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-YDt8Ls
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1369
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 17:47:57 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-p6Wo94
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1893
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Thu Jul  9 17:50:17 CST 2015 :
+	Name:      /var/folders/_8/h252y4m94hlf_l4fs8rb9khc0000gn/T/SchemeScriptAction-CVzuHy
+	WorkDir:   /Users/master/GitHub/Free-Copter
+	Args:      
+	PID:       1959
+	PATH:      /Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
