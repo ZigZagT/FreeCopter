@@ -7,13 +7,23 @@
 //
 
 #include <iostream>
-#include "wiringPi_control.h"
-#include "RPI_peripheral.h"
+#include <stdlib.h>
+#include <signal.h>
+#include <thread>
+#include "raspberry_pi.h"
+
+void SIGINThandler(int x) {
+    raspberry_pi_term();
+    std::cout << "user exiting... " << std::endl;
+    exit(0);
+}
 
 int main(const int argc, const char** argv) {
     std::cout << "starting gpio route..." << std::endl;
-    gpio_control_start();
-    //wiringPi_start();
-    std::cout << "Hello Copter" << std::endl;
+    signal(SIGINT, SIGINThandler);
+    signal(SIGTERM, SIGINThandler);
+    
+    raspberry_pi_start();
+    std::this_thread::sleep_for(std::chrono::hours(1));
     return 0;
 }

@@ -6,14 +6,14 @@
 //
 //
 
-#ifndef __Free_Copter__gpio_mem_dump__
-#define __Free_Copter__gpio_mem_dump__
+#ifndef __GPIO_MEM_DUMP_H__
+#define __GPIO_MEM_DUMP_H__
 
 #include <stdio.h>
 #include <iostream>
-#include "RPI_peripheral.h"
+#include "raspberry_pi.h"
 
 void gpio_mem_dump ();
 char* unsigned_to_binary(unsigned num);
 
-#endif /* defined(__Free_Copter__gpio_mem_dump__) */
+#endif /* defined(__GPIO_MEM_DUMP_H__) */
