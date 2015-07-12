@@ -1,0 +1,250 @@
+called: /usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	gcc
+	-Wall
+	--std=c++11
+	-c
+	src/gpio_mem_dump.cpp
+	-o
+	dest\/gpio_mem_dump.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/gpio_mem_dump.cpp
+	-o
+	dest\/gpio_mem_dump.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/gpio_mem_dump.cpp
+	-o
+	dest\/gpio_mem_dump.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/gpio_mem_dump.cpp
+	-o
+	dest\/gpio_mem_dump.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/gpio_mem_dump.cpp
+	-o
+	dest\/gpio_mem_dump.o
+
+called: /usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	gcc
+	-Wall
+	--std=c++11
+	-c
+	src/main.cpp
+	-o
+	dest\/main.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/main.cpp
+	-o
+	dest\/main.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/main.cpp
+	-o
+	dest\/main.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/main.cpp
+	-o
+	dest\/main.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/main.cpp
+	-o
+	dest\/main.o
+
+called: /usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	gcc
+	-Wall
+	--std=c++11
+	-c
+	src/mmal.cpp
+	-o
+	dest\/mmal.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/mmal.cpp
+	-o
+	dest\/mmal.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/mmal.cpp
+	-o
+	dest\/mmal.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/mmal.cpp
+	-o
+	dest\/mmal.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/mmal.cpp
+	-o
+	dest\/mmal.o
+
+called: /usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	gcc
+	-Wall
+	--std=c++11
+	-c
+	src/raspberry_pi.cpp
+	-o
+	dest\/raspberry_pi.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/raspberry_pi.cpp
+	-o
+	dest\/raspberry_pi.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/raspberry_pi.cpp
+	-o
+	dest\/raspberry_pi.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/raspberry_pi.cpp
+	-o
+	dest\/raspberry_pi.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/raspberry_pi.cpp
+	-o
+	dest\/raspberry_pi.o
+
+called: /usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	gcc
+	-Wall
+	--std=c++11
+	-c
+	src/wiringPi_control.cpp
+	-o
+	dest\/wiringPi_control.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/wiringPi_control.cpp
+	-o
+	dest\/wiringPi_control.o
+
+called: /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+	-Wall
+	--std=c++11
+	-c
+	src/wiringPi_control.cpp
+	-o
+	dest\/wiringPi_control.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/wiringPi_control.cpp
+	-o
+	dest\/wiringPi_control.o
+
+called: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	/Users/master/GitHub/Free-Copter
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+	-Wall
+	--std=c++11
+	-c
+	src/wiringPi_control.cpp
+	-o
+	dest\/wiringPi_control.o
+

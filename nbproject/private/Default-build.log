@@ -1,0 +1,16 @@
+dest\/gpio_mem_dump.o
+error: unable to open output file 'dest\/gpio_mem_dump.o': 'Error opening output file 'dest\/gpio_mem_dump.o': No such file or directory'
+1 error generated.
+dest\/main.o
+error: unable to open output file 'dest\/main.o': 'Error opening output file 'dest\/main.o': No such file or directory'
+1 error generated.
+dest\/mmal.o
+error: unable to open output file 'dest\/mmal.o': 'Error opening output file 'dest\/mmal.o': No such file or directory'
+1 error generated.
+dest\/raspberry_pi.o
+error: unable to open output file 'dest\/raspberry_pi.o': 'Error opening output file 'dest\/raspberry_pi.o': No such file or directory'
+1 error generated.
+dest\/wiringPi_control.o
+error: unable to open output file 'dest\/wiringPi_control.o': 'Error opening output file 'dest\/wiringPi_control.o': No such file or directory'
+1 error generated.
+make: *** [all] Error 1

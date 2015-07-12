@@ -7,6 +7,10 @@ TAR = $(patsubst src/%.cpp,dest/%.o,$(SRC))
 #	gcc -std=c11 $< -o $@
 
 all:
+	@if [ ! -d ./dest ]; then \
+	   mkdir ./dest ; \
+	fi
+	
 	@for file in src/*.cpp; do \
 		export objfile="$${file//src\//dest\/}";\
 		export objfile="$${objfile//.cpp/.o}";\

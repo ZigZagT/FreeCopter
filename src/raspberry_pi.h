@@ -41,7 +41,7 @@ struct bcm2708_peripheral {
     volatile unsigned int *addr;
 };
 
-// tempuse
+// temp use
 extern struct bcm2708_peripheral gpio;
 
 void raspberry_pi_start();
