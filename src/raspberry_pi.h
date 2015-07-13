@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include <iostream>
+#include <deque>
 #include <thread>
 #include <chrono>
 #include <mutex>
@@ -47,17 +48,20 @@ struct gpio_status {
     volatile unsigned E = 1000;
     volatile unsigned T = 0;
     volatile unsigned R = 1000;
+    volatile unsigned U = 1000;
     volatile unsigned Aux1 = 1000;
     volatile unsigned Aux2 = 1000;
     volatile unsigned Aux3 = 1000;
-    
-    volatile std::mutex write_lock;
 };
 
-// temp use
+
 extern struct bcm2708_peripheral gpio;
 extern struct gpio_status gpio_in;
 extern struct gpio_status gpio_out;
+
+// in ms.
+extern volatile double input_pwm_min;
+extern volatile double input_pwm_max;
 
 void raspberry_pi_start();
 

@@ -1,16 +1,8 @@
-#Mon Jul 13 13:32:42 CST 2015
-/users/master/github/free-copter/src/include/wiringpispi.h=c1436066852000
-/users/master/github/free-copter/src/wiringpi_control.h=c1436294061000
-/users/master/github/free-copter/src/raspberry_pi.cpp=c1436765560000
-/users/master/github/free-copter/src/include/wiringshift.h=c1436066852000
-/users/master/github/free-copter/src/wiringpi_control.cpp=c1436092332000
-/users/master/github/free-copter/src/raspberry_pi.h=c1436765561000
+#Mon Jul 13 16:57:56 CST 2015
+/users/master/github/free-copter/src/raspberry_pi.cpp=c1436777588000
 /users/master/github/free-copter/src/gpio_mem_dump.cpp=c1436292421000
-/users/master/github/free-copter/makefile=c1436727570000
-/users/master/github/free-copter/src/include/wiringpii2c.h=c1436066852000
-/users/master/github/free-copter/src/include/wiringpi.h=c1436066852000
-VERSION=1.3
-/users/master/github/free-copter/src/main.cpp=c1436698044000
+/users/master/github/free-copter/src/main.cpp=c1436775394000
 /users/master/github/free-copter/src/gpio_mem_dump.h=c1436698044000
-/users/master/github/free-copter/src/mmal.cpp=c1435684456000
-/users/master/github/free-copter/src/include/wiringserial.h=c1436066852000
+/users/master/github/free-copter/makefile=c1436772192000
+VERSION=1.3
+/users/master/github/free-copter/src/raspberry_pi.h=c1436775305000
