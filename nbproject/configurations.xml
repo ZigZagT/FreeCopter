@@ -4,9 +4,7 @@
     <df root="src" name="0">
       <in>gpio_mem_dump.cpp</in>
       <in>main.cpp</in>
-      <in>mmal.cpp</in>
       <in>raspberry_pi.cpp</in>
-      <in>wiringPi_control.cpp</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -48,11 +46,7 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="4">
       </item>
-      <item path="src/mmal.cpp" ex="false" tool="1" flavor2="4">
-      </item>
       <item path="src/raspberry_pi.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/wiringPi_control.cpp" ex="false" tool="1" flavor2="4">
       </item>
     </conf>
   </confs>

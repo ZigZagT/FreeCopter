@@ -18,7 +18,7 @@ all:
 		gcc -Wall --std=c++11 -c $$file -o $$objfile;\
 	done
 
-	@gcc -Wall -lstdc++ dest/*.o -o dest/fc -lwiringPi
+	@gcc -Wall -lstdc++ dest/*.o -o dest/fc
 
 dest/%.o: src/%.cpp
 	echo $<

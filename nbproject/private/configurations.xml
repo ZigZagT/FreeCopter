@@ -3,20 +3,12 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="src" name="0">
       <df name="include">
-        <in>wiringPi.h</in>
-        <in>wiringPiI2C.h</in>
-        <in>wiringPiSPI.h</in>
-        <in>wiringSerial.h</in>
-        <in>wiringShift.h</in>
       </df>
       <in>gpio_mem_dump.cpp</in>
       <in>gpio_mem_dump.h</in>
       <in>main.cpp</in>
-      <in>mmal.cpp</in>
       <in>raspberry_pi.cpp</in>
       <in>raspberry_pi.h</in>
-      <in>wiringPi_control.cpp</in>
-      <in>wiringPi_control.h</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -58,7 +50,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir>.</rundir>
+        <rundir></rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
