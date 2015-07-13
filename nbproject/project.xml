@@ -4,21 +4,15 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Free-Copter</name>
-            <c-extensions>c</c-extensions>
+            <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>
-                <sourceRootElem>archive</sourceRootElem>
-                <sourceRootElem>tools</sourceRootElem>
             </sourceRootList>
             <confList>
-                <confElem>
-                    <name>Build_in_Ocean</name>
-                    <type>0</type>
-                </confElem>
                 <confElem>
                     <name>Default</name>
                     <type>0</type>

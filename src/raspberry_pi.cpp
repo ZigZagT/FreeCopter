@@ -19,9 +19,13 @@
 
 static std::condition_variable clock_tick;
 static volatile bool ready = false;
-struct bcm2708_peripheral gpio = {GPIO_BASE};
+static volatile 
 #define gpio_input_pin_mask  (0b11111111 << 2)
 #define gpio_output_pin_mask (0b11111 << 20)
+
+struct bcm2708_peripheral gpio = {GPIO_BASE};
+struct gpio_status gpio_in;
+struct gpio_status gpio_out;
 
 
 static int map_peripheral(struct bcm2708_peripheral *p);
@@ -30,9 +34,10 @@ static void unmap_peripheral(struct bcm2708_peripheral *p);
 static void raspberry_pi_init();
 static void raspberry_pi_clock();
 static void raspberry_pi_gpio_route();
-static void raspberry_pi_gpio_pwm();
-
 static inline void do_gpio_route();
+static inline void gpio_in_generate(unsigned gpio_bits_8); // A E T R U and Aux1 to Aux3
+static inline void gpio_out_generate(unsigned gpio_bits_5); // A E T R U
+static void raspberry_pi_gpio_pwm();
 static inline void do_gpio_pwm();
 
 void raspberry_pi_start();
