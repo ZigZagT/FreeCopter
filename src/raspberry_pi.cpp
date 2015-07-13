@@ -107,9 +107,7 @@ static void raspberry_pi_init() {
 }
 
 static void raspberry_pi_clock() {
-    while (!ready) {
-        ;
-    }
+    while (!ready) ;
     for (;;) {
         std::this_thread::sleep_for(std::chrono::microseconds(1));
         clock_tick.notify_all();

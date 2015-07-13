@@ -15,10 +15,10 @@ all:
 		export objfile="$${file//src\//dest\/}";\
 		export objfile="$${objfile//.cpp/.o}";\
 		echo "$$objfile";\
-		gcc -Wall --std=c++11 -c $$file -o $$objfile;\
+		gcc -Wall -std=c++11 -pthread -c $$file -o $$objfile;\
 	done
 
-	@gcc -Wall -lstdc++ dest/*.o -o dest/fc
+	@gcc -Wall -std=c++11 -pthread -lstdc++ dest/*.o -o dest/fc
 
 dest/%.o: src/%.cpp
 	echo $<
