@@ -41,8 +41,23 @@ struct bcm2708_peripheral {
     volatile unsigned int *addr;
 };
 
+struct gpio_status {
+    // from 0 to 2000
+    volatile unsigned A = 1000;
+    volatile unsigned E = 1000;
+    volatile unsigned T = 0;
+    volatile unsigned R = 1000;
+    volatile unsigned Aux1 = 1000;
+    volatile unsigned Aux2 = 1000;
+    volatile unsigned Aux3 = 1000;
+    
+    volatile std::mutex write_lock;
+};
+
 // temp use
 extern struct bcm2708_peripheral gpio;
+extern struct gpio_status gpio_in;
+extern struct gpio_status gpio_out;
 
 void raspberry_pi_start();
 
