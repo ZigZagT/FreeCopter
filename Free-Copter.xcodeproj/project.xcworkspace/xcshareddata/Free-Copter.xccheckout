@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D35FCC63-AD02-40E4-9A88-4BE629609D64</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Free-Copter</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4EB1E6FB9A1E2EDA492CA4A007620E76467B2CF9</key>
 		<string>https://github.com/Daftme/Free-Copter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Free-Copter.xcodeproj</string>
+	<string>Free-Copter.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4EB1E6FB9A1E2EDA492CA4A007620E76467B2CF9</key>

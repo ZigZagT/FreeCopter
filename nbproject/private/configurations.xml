@@ -4,11 +4,16 @@
     <df root="src" name="0">
       <df name="include">
       </df>
+      <in>config.h</in>
       <in>gpio_mem_dump.cpp</in>
       <in>gpio_mem_dump.h</in>
       <in>main.cpp</in>
       <in>raspberry_pi.cpp</in>
       <in>raspberry_pi.h</in>
+      <in>rpi_interrupt.cpp</in>
+      <in>rpi_interrupt.h</in>
+      <in>rpi_rpio_pwm.c</in>
+      <in>rpi_rpio_pwm.h</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

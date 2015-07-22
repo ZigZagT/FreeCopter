@@ -9,7 +9,10 @@
         <group>
             <file>file:/Users/master/GitHub/Free-Copter/src/raspberry_pi.h</file>
             <file>file:/Users/master/GitHub/Free-Copter/src/raspberry_pi.cpp</file>
-            <file>file:/Users/master/GitHub/Free-Copter/Makefile</file>
+            <file>file:/Users/master/GitHub/Free-Copter/src/rpi_dma_pwm.cpp</file>
+            <file>file:/Users/master/GitHub/Free-Copter/src/rpi_dma_pwm.h</file>
+            <file>file:/Users/master/GitHub/Free-Copter/src/rpi_interrupt.h</file>
+            <file>file:/Users/master/GitHub/Free-Copter/src/config.h</file>
             <file>file:/Users/master/GitHub/Free-Copter/src/main.cpp</file>
         </group>
     </open-files>

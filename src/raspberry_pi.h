@@ -15,17 +15,17 @@
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
+#include <time.h>
+#include <signal.h>
 
 #include <iostream>
-#include <deque>
-#include <thread>
-#include <chrono>
-#include <mutex>
-#include <condition_variable>
+#include <string.h>
 
 #include "gpio_mem_dump.h"
-
+#include "config.h"
+#include "rpi_rpio_pwm.h"
 
 // raspberry_pi_clock_type_interrupt, raspberry_pi_clock_type_chrono
 // raspberry_pi_clock_type_interrupt for use system clock interrupts or raspberry_pi_clock_type_chrono for use cpp header <chrono>
@@ -63,8 +63,10 @@ extern struct gpio_status gpio_out;
 extern volatile double input_pwm_min;
 extern volatile double input_pwm_max;
 
-void raspberry_pi_start();
+// Interface implementation
+extern void module_init(void *);
+extern void module_term(void *);
+extern void module_output_loop(void *);
+extern void module_input_loop(void *);
 
-// call this function before exit. (in the SIGTERM or SIGINT handler)
-void raspberry_pi_term();
 #endif /* defined(__RASPBERRY_PI_H__) */

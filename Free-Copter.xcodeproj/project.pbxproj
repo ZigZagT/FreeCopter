@@ -159,6 +159,7 @@
 		AFBC05101B3C7BEB0026061F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -166,6 +167,7 @@
 		AFBC05111B3C7BEB0026061F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 			};
 			name = Release;
 		};
