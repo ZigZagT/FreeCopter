@@ -12,7 +12,7 @@
       <in>raspberry_pi.h</in>
       <in>rpi_interrupt.cpp</in>
       <in>rpi_interrupt.h</in>
-      <in>rpi_rpio_pwm.c</in>
+      <in>rpi_rpio_pwm.cpp</in>
       <in>rpi_rpio_pwm.h</in>
     </df>
   </logicalFolder>

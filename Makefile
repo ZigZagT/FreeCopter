@@ -15,15 +15,15 @@ all:
 		export objfile="$${file//src\//dest\/}";\
 		export objfile="$${objfile//.cpp/.o}";\
 		echo "$$objfile";\
-		gcc -Wall -std=c++11 -c $$file -pthread -lrt -o $$objfile;\
+		gcc -Wall -Wno-write-strings -Wno-sign-compare -std=c++11 -c $$file -pthread -lrt -o $$objfile;\
 	done
 
-	@gcc -Wall -std=c++11 dest/*.o -pthread -lrt -lstdc++ -o dest/fc
+	@gcc -Wall -Wno-write-strings -Wno-sign-compare -std=c++11 dest/*.o -pthread -lrt -lstdc++ -o dest/fc
 
 dest/%.o: src/%.cpp
 	echo $<
 	echo $@
-	g++ -Wall -std=c++11 -c $< -o $@
+	g++ -Wall -Wno-sign-compare -std=c++11 -c $< -o $@
 
 clean:
 	rm -rf dest/
