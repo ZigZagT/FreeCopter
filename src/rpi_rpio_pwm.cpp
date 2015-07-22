@@ -84,6 +84,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+
 #include "rpi_rpio_pwm.h"
 
 // Some important systemd-wide defines moved to raspberry_pi.h
@@ -343,7 +344,7 @@ setup_sighandlers(void) {
         }
         struct sigaction sa;
         memset(&sa, 0, sizeof (sa));
-        sa.sa_handler = (void *) terminate;
+        sa.sa_handler = [](int){terminate();};
         sigaction(i, &sa, NULL);
     }
 }
@@ -492,7 +493,7 @@ make_pagemap(int channel) {
     int i, fd, memfd, pid;
     char pagemap_fn[64];
 
-    channels[channel].page_map = malloc(channels[channel].num_pages * sizeof (*channels[channel].page_map));
+    channels[channel].page_map = (page_map_t*)malloc(channels[channel].num_pages * sizeof (*channels[channel].page_map));
 
     if (channels[channel].page_map == 0)
         return fatal("rpio-pwm: Failed to malloc page_map: %m\n");
@@ -526,7 +527,7 @@ make_pagemap(int channel) {
 
 static int
 init_virtbase(int channel) {
-    channels[channel].virtbase = mmap(NULL, channels[channel].num_pages * PAGE_SIZE, PROT_READ | PROT_WRITE,
+    channels[channel].virtbase = (uint8_t*)mmap(NULL, channels[channel].num_pages * PAGE_SIZE, PROT_READ | PROT_WRITE,
             MAP_SHARED | MAP_ANONYMOUS | MAP_NORESERVE | MAP_LOCKED, -1, 0);
     if (channels[channel].virtbase == MAP_FAILED)
         return fatal("rpio-pwm: Failed to mmap physical pages: %m\n");
@@ -546,7 +547,7 @@ init_ctrl_data(int channel) {
     uint32_t phys_gpclr0 = 0x7e200000 + 0x28;
     int i;
 
-    channels[channel].dma_reg = map_peripheral(DMA_BASE, DMA_LEN) + (DMA_CHANNEL_INC * channel);
+    channels[channel].dma_reg = (volatile uint32_t*)map_peripheral(DMA_BASE, DMA_LEN) + (DMA_CHANNEL_INC * channel);
     if (channels[channel].dma_reg == NULL)
         return EXIT_FAILURE;
 
@@ -720,10 +721,10 @@ setup(int pw_incr_us, int hw) {
     setup_sighandlers();
 
     // Initialize common stuff
-    pwm_reg = map_peripheral(PWM_BASE, PWM_LEN);
-    pcm_reg = map_peripheral(PCM_BASE, PCM_LEN);
-    clk_reg = map_peripheral(CLK_BASE, CLK_LEN);
-    gpio_reg = map_peripheral(GPIO_BASE, GPIO_LEN);
+    pwm_reg = (volatile uint32_t*)map_peripheral(PWM_BASE, PWM_LEN);
+    pcm_reg = (volatile uint32_t*)map_peripheral(PCM_BASE, PCM_LEN);
+    clk_reg = (volatile uint32_t*)map_peripheral(CLK_BASE, CLK_LEN);
+    gpio_reg = (volatile uint32_t*)map_peripheral(GPIO_BASE, GPIO_LEN);
     if (pwm_reg == NULL || pcm_reg == NULL || clk_reg == NULL || gpio_reg == NULL)
         return EXIT_FAILURE;
 
@@ -754,6 +755,7 @@ get_channel_subcycle_time_us(int channel) {
     return channels[channel].subcycle_time_us;
 }
 
+/*
 int
 main(int argc, char **argv) {
     // Very crude...
@@ -788,3 +790,4 @@ main(int argc, char **argv) {
     shutdown();
     exit(0);
 }
+*/

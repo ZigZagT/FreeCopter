@@ -27,6 +27,31 @@
 #include "config.h"
 #include "rpi_rpio_pwm.h"
 
+// for raspberry pi 1
+//define BCM2708_PERI_BASE          0x20000000
+// for raspberry pi 2
+#define BCM2708_PERI_BASE           0x3F000000
+
+// Memory Addresses
+#define DMA_BASE                    (BCM2708_PERI_BASE + 0x00007000)
+#define DMA_CHANNEL_INC             0x100
+#define DMA_LEN                     0x24
+#define PWM_BASE                    (BCM2708_PERI_BASE + 0x0020C000)
+#define PWM_LEN                     0x28
+#define CLK_BASE                    (BCM2708_PERI_BASE + 0x00101000)
+#define CLK_LEN                     0xA8
+#define GPIO_BASE                   (BCM2708_PERI_BASE + 0x00200000)
+#define GPIO_LEN                    0x100
+#define PCM_BASE                    (BCM2708_PERI_BASE + 0x00203000)
+#define PCM_LEN                     0x24
+
+// Standard page sizes
+#define BLOCK_SIZE                  (4*1024)
+#define PAGE_SIZE                   (4*1024)
+#define PAGE_SHIFT                  12
+
+
+
 // raspberry_pi_clock_type_interrupt, raspberry_pi_clock_type_chrono
 // raspberry_pi_clock_type_interrupt for use system clock interrupts or raspberry_pi_clock_type_chrono for use cpp header <chrono>
 #define raspberry_pi_clock_type_chrono
