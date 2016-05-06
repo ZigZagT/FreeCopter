@@ -2,11 +2,6 @@
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="src" name="0">
-      <in>gpio_mem_dump.cpp</in>
-      <in>main.cpp</in>
-      <in>raspberry_pi.cpp</in>
-      <in>rpi_interrupt.cpp</in>
-      <in>rpi_interrupt.h</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -34,26 +29,9 @@
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath>dest/fc</executablePath>
-          <ccTool>
-            <standard>8</standard>
-            <incDir>
-              <pElem>src</pElem>
-              <pElem>src/include</pElem>
-            </incDir>
-          </ccTool>
+          <executablePath></executablePath>
         </makeTool>
       </makefileType>
-      <item path="src/gpio_mem_dump.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/raspberry_pi.cpp" ex="false" tool="1" flavor2="4">
-      </item>
-      <item path="src/rpi_interrupt.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/rpi_interrupt.h" ex="false" tool="3" flavor2="0">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

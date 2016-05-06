@@ -25,7 +25,7 @@
 
 #include "raspberry_pi.h"
 
-int setup(int pw_incr_us, int hw);
+int rpio_setup(int pw_incr_us, int hw);
 void shutdown(void);
 void set_loglevel(int level);
 
