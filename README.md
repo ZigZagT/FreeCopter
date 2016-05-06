@@ -71,10 +71,9 @@ Free Copter
    |  `--wcp
    `--wrapper
       |--device
-      |--sp
       `--wcp
 
 ```
 > Generated From:  
 >  
-> (((wcp, fcapi, device)controller, (wcp, sp, device)wrapper, include)src, tools)Free Copter;
+> (((wcp, fcapi, device)controller, (wcp, device)wrapper, include)src, tools)Free Copter;
