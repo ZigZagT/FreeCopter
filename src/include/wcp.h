@@ -65,14 +65,4 @@ typedef struct {
     FREECOPTER_WCP_CHANNEL_T channel[6];
 } FREECOPTER_WCP_STATUS_T;
 
-
-/*
- * Basic translate functions used to implement translation function.
- */
-int fc_wcp_send_int8(unsigned long port, uint8_t data);
-int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
-int fc_wcp_send_int32(unsigned long port, uint32_t data);
-int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
-int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data);
-int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data);
 #endif //FREECOPTER_WCP_H
