@@ -111,9 +111,9 @@ void PWM0_IRQHandler(void) {
     Disable_PWM0_INT();
     PWM0->CAPIF = 0x3f3f;
 
-    unsigned int index;
-    unsigned int falling_data, rising_data;
-    unsigned int high_period, low_period, total_period;
+    uint32_t index;
+    uint32_t falling_data, rising_data;
+    uint32_t high_period, low_period, total_period;
 
     for (   index = 0;
             index < 6;
@@ -138,6 +138,8 @@ void PWM0_IRQHandler(void) {
 
             BPWM_SET_CNR(BPWM0, index, PWM_Cycle_Per_Period);
             BPWM_SET_CMR(BPWM0, index, high_period);
+
+            fc_wcp_status_channels.channel[index / 2].value = (float*)(high_period * 1000) / (float)(PWM_Cycle_Per_Period);
         }
     }
     Enable_PWM0_INT();
@@ -292,6 +294,8 @@ void PWM1_IRQHandler(void) {
         if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
             BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
             BPWM_SET_CMR(BPWM1, index, high_period);
+
+            fc_wcp_status_channels.channel[index / 2 + 3].value = (float*)(high_period * 1000) / (float)(PWM_Cycle_Per_Period);
         }
     }
     Enable_PWM1_INT();
@@ -524,6 +528,23 @@ void PWM_INIT( void ) {
 
     BPWM_Start(BPWM0, BPWM_CH_0_MASK | BPWM_CH_2_MASK | BPWM_CH_4_MASK);
     BPWM_Start(BPWM1, BPWM_CH_0_MASK | BPWM_CH_2_MASK | BPWM_CH_4_MASK);
+
+
+    fc_wcp_status_channels.channel_n = 6;
+    fc_wcp_status_channels.channel[0].name = FREECOPTER_WCP_CHANNEL_AILERON;
+    fc_wcp_status_channels.channel[0].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+    fc_wcp_status_channels.channel[1].name = FREECOPTER_WCP_CHANNEL_ELEVATOR;
+    fc_wcp_status_channels.channel[1].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+    fc_wcp_status_channels.channel[2].name = FREECOPTER_WCP_CHANNEL_THROTTLE;
+    fc_wcp_status_channels.channel[2].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+    fc_wcp_status_channels.channel[3].name = FREECOPTER_WCP_CHANNEL_RUDDER;
+    fc_wcp_status_channels.channel[3].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+    fc_wcp_status_channels.channel[4].name = FREECOPTER_WCP_CHANNEL_USER1;
+    fc_wcp_status_channels.channel[4].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+    fc_wcp_status_channels.channel[5].name = FREECOPTER_WCP_CHANNEL_USER2;
+    fc_wcp_status_channels.channel[5].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
+
+
 
     // init IRQ
     NVIC_EnableIRQ(PWM0_IRQn);
