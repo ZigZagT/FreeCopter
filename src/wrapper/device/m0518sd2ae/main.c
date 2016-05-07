@@ -6,35 +6,7 @@
 #include "define.h"
 #include "i2c_rw.h"
 
-
-/*---------------------------------------------------------------------------------------------------------*/
-/* Macro, type and constant definitions                                                                    */
-/*---------------------------------------------------------------------------------------------------------*/
-
 // #define DEBUG                       1
-
-#define PLLCON_SETTING              CLK_PLLCON_50MHz_HXT
-#define PLL_CLOCK                   50000000
-
-#define PWM_PERIOD_US               11000
-#define PWM_LOW_BOUND_US            1200
-#define PWM_HI_BLUND_US             1800
-#define PWM_PERIOD_LIMIT_US         11000
-#define PWM_LOW_BOUND_LIMIT_US      900
-#define PWM_HI_BOUND_LIMIT_US       2200
-#define PWM_GLOBAL_PRESCALE         5
-
-#define Enable_PWM0_INT()       (PWM0->CAPIEN |= (0x15 << 8))
-#define Disable_PWM0_INT()      (PWM0->CAPIEN &= (~(0x15 << 8)))
-#define Enable_PWM1_INT()       (PWM1->CAPIEN |= (0x15 << 8))
-#define Disable_PWM1_INT()      (PWM1->CAPIEN &= (~(0x15 << 8)))
-#define Enable_I2C0_INT()       (I2C_EnableInt(I2C0))
-#define Disable_I2C0_INT()      (I2C_DisableInt(I2C0))
-
-#define PWM_GET_CMR(pwm, u32ChannelNum) ((pwm)->CMPBUF[(u32ChannelNum)])
-#define PWM_GET_CNR(pwm, u32ChannelNum)  ((pwm)->PBUF[(((u32ChannelNum) >> 1) << 1)])
-#define BPWM_GET_CMR(bpwm, u32ChannelNum) ((bpwm)->CMPBUF[(u32ChannelNum)])
-#define BPWM_GET_CNR(bpwm) ((bpwm)->PBUF)
 
 double PWM_Cycle_Per_US;
 int PWM_NS_Per_Cycle;
@@ -49,8 +21,8 @@ int PWM_Cycle_Hi_Bound_Limit;
 I2C_SEND_T I2C_Send_Control;
 I2C_RECV_T I2C_Recv_Control;
 
-size_t buf_cap = 200;
-size_t buf_len = 200;
+uint32_t buf_cap = 200;
+uint32_t buf_len = 200;
 uint8_t buf[200];
 
 void PWM0_IRQHandler(void);
@@ -139,7 +111,7 @@ void PWM0_IRQHandler(void) {
             BPWM_SET_CNR(BPWM0, index, PWM_Cycle_Per_Period);
             BPWM_SET_CMR(BPWM0, index, high_period);
 
-            fc_wcp_status_channels.channel[index / 2].value = (float*)(high_period * 1000) / (float)(PWM_Cycle_Per_Period);
+            fc_wcp_status_channels.channel[index / 2].value = (high_period * 1000) / PWM_Cycle_Per_Period;
         }
     }
     Enable_PWM0_INT();
@@ -295,7 +267,7 @@ void PWM1_IRQHandler(void) {
             BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
             BPWM_SET_CMR(BPWM1, index, high_period);
 
-            fc_wcp_status_channels.channel[index / 2 + 3].value = (float*)(high_period * 1000) / (float)(PWM_Cycle_Per_Period);
+            fc_wcp_status_channels.channel[index / 2 + 3].value = (high_period * 1000) / PWM_Cycle_Per_Period;
         }
     }
     Enable_PWM1_INT();
@@ -619,6 +591,7 @@ void I2C_INIT(void)
 
 void I2C_Slave_Go(I2C_T* port, uint32_t status) {
     uint8_t temp_data;
+    uint32_t temp;
     int res;
 
     #if defined(DEBUG)
@@ -666,7 +639,8 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
                 fc_wcp_status_transfer_progress = 0;
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_SEND;
 
-                I2C_Set_Send_Data(&I2C_Send_Control, &fc_wcp_status_channels, sizeof(fc_wcp_status_channels));
+                temp = sizeof(fc_wcp_status_channels);
+                I2C_Set_Send_Data(&I2C_Send_Control, (uint8_t*)&fc_wcp_status_channels, &temp);
                 I2C_Flush_Send_Data(&I2C_Send_Control);
             }
             break;
@@ -710,7 +684,8 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
             } else {
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_SEND_HEADER;
                 fc_wcp_status_transfer_header.data_length = sizeof(FREECOPTER_WCP_STATUS_T);
-                I2C_Set_Send_Data(&I2C_Send_Control, &fc_wcp_status_transfer_header.data_length, 4);
+                temp = 4;
+                I2C_Set_Send_Data(&I2C_Send_Control, (uint8_t*)&fc_wcp_status_transfer_header.data_length, &temp);
                 I2C_Flush_Send_Data(&I2C_Send_Control);
             }
             I2C_RECV_RESET(&I2C_Recv_Control);
@@ -720,10 +695,10 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
             case FREECOPTER_WCP_STATUS_TRANSFER_RECV_HEADER:
             if (fc_wcp_status_transfer_progress == 4) {
                 fc_wcp_status_transfer_progress = 0;
-                fc_wcp_status_transfer_header.data_length = *(uint32_t*)I2C_Recv_Control->pending_data_buf;
+                fc_wcp_status_transfer_header.data_length = *((uint32_t*)(I2C_Recv_Control.pending_data_buf));
 
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_RECV;
-                I2C_RESET(&I2C_Recv_Control);
+                I2C_RECV_RESET(&I2C_Recv_Control);
             }
             break;
 
@@ -732,7 +707,7 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
                 I2C_Flush_Recv_Data(&I2C_Recv_Control);
                 fc_wcp_status_transfer_progress = 0;
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
-                fc_wcp_update_channel_status(&I2C_Recv_Control);
+                fc_wcp_update_channel_status((unsigned long)&I2C_Recv_Control);
             }
             break;
             default:
@@ -823,7 +798,7 @@ int32_t main(void)
     //         }
     //         buf_len = buf_cap;
     //     }
-    // }
+    }
 
     /*
     Don't care about close pwm and i2c

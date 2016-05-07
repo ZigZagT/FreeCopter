@@ -10,7 +10,7 @@ static char __send_next[__length__];
 static char __recv_pending[__length__];
 static char __recv_fin[__length__];
 
-void I2C_SEND_INIT(I2C_SEND_T* target, size_t buf_len) {
+void I2C_SEND_INIT(I2C_SEND_T* target, uint32_t buf_len) {
     memset(target, 0, sizeof(I2C_SEND_T));
 
     // target->pending_data = malloc(buf_len);
@@ -30,7 +30,7 @@ void I2C_SEND_INIT(I2C_SEND_T* target, size_t buf_len) {
     target->pending_data_capcity = __length__;
     target->next_data_capcity = __length__;
 }
-void I2C_RECV_INIT(I2C_RECV_T* target, size_t buf_len) {
+void I2C_RECV_INIT(I2C_RECV_T* target, uint32_t buf_len) {
     memset(target, 0, sizeof(I2C_RECV_T));
 
     // target->pending_data_buf = malloc(buf_len);
@@ -57,13 +57,13 @@ void I2C_RECV_RESET(I2C_RECV_T* target) {
     target->pending_data_index = 0;
 }
 
-int I2C_Set_Send_Data(I2C_SEND_T* target, uint8_t* data, size_t* len) {
+int I2C_Set_Send_Data(I2C_SEND_T* target, uint8_t* data, uint32_t* len) {
     // Mutex_Lock(&(target->next_data_mutex));
     if (Mutex_Try_Lock(&(target->next_data_mutex)) != 0) {
         *len = 0;
         return I2C_ERROR_LOCK_MUTEX_FAILED;
     }
-    size_t truncted_len = *len > target->next_data_capcity ? target->next_data_capcity : *len;
+    uint32_t truncted_len = *len > target->next_data_capcity ? target->next_data_capcity : *len;
     memcpy(target->next_data, data, truncted_len);
     target->next_data_length = truncted_len;
     *len = truncted_len;
@@ -72,13 +72,13 @@ int I2C_Set_Send_Data(I2C_SEND_T* target, uint8_t* data, size_t* len) {
     Mutex_Unlock(&(target->next_data_mutex));
     return 0;
 }
-int I2C_Get_Recv_Data(I2C_RECV_T* target, uint8_t* buf, size_t* len) {
+int I2C_Get_Recv_Data(I2C_RECV_T* target, uint8_t* buf, uint32_t* len) {
     //Mutex_Lock(&(target->recv_data_mutex));
     if (Mutex_Try_Lock(&(target->recv_data_mutex)) != 0) {
         *len = 0;
         return I2C_ERROR_LOCK_MUTEX_FAILED;
     }
-    size_t truncted_len = *len > target->recv_data_length ? target->recv_data_length : *len;
+    uint32_t truncted_len = *len > target->recv_data_length ? target->recv_data_length : *len;
     memcpy(buf, target->recv_data_buf, truncted_len);
     *len = truncted_len;
     I2C_CLEAR_FLAG(target, I2C_FLAG_FLUSH);
@@ -99,7 +99,7 @@ int I2C_Flush_Send_Data(I2C_SEND_T* target) {
         Mutex_Unlock(&(target->next_data_mutex));
         return I2C_ERROR_FLAG_FLUSH_IS_SET;
     }
-    size_t truncted_len = target->pending_data_capcity > target->next_data_length ? target->next_data_length : target->pending_data_capcity;
+    uint32_t truncted_len = target->pending_data_capcity > target->next_data_length ? target->next_data_length : target->pending_data_capcity;
     memcpy(target->pending_data, target->next_data, truncted_len);
     target->pending_data_length = truncted_len;
     target->pending_data_index = 0;
@@ -120,7 +120,7 @@ int I2C_Flush_Recv_Data(I2C_RECV_T* target) {
         return I2C_ERROR_FLAG_FLUSH_IS_SET;
     }
     //printf("I2C Flush Recv Data:\n\tlen:\t%d\n\tfirst:\t0x%X\n\n", target->pending_data_index, target->pending_data_buf[0]);
-    size_t truncted_len = target->pending_data_index > target->recv_data_capcity ? target->recv_data_capcity : target->pending_data_index;
+    uint32_t truncted_len = target->pending_data_index > target->recv_data_capcity ? target->recv_data_capcity : target->pending_data_index;
     memcpy(target->recv_data_buf, target->pending_data_buf, truncted_len);
     target->recv_data_length = truncted_len;
     target->pending_data_index = 0;
