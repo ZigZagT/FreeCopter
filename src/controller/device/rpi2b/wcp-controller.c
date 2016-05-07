@@ -7,11 +7,11 @@
 #include <stdlib.h>
 
 int fc_wcp_send_int8(unsigned long port, uint8_t data) {
-    return fc_rpi_i2c_write_byte(port, data);
+    return rpi_i2c_write_byte(port, data);
 }
 
 int fc_wcp_recv_int8(unsigned long port, uint8_t *data) {
-    return fc_rpi_i2c_read_byte(port, data);
+    return rpi_i2c_read_byte(port, data);
 }
 
 int fc_wcp_send_int32(unsigned long port, uint32_t data) {
@@ -29,13 +29,13 @@ int fc_wcp_recv_int32(unsigned long port, uint32_t *data) {
     uint8_t *recv_data = (uint8_t*)data;
     int i;
     for (i = 0; i < 4; ++i) {
-        if (fc_wcp_send_int8(port, recv_data + i) != 0) {
+        if (fc_wcp_send_int8(port, recv_data[i]) != 0) {
             return -1;
         }
     }
     return 0;
 }
-int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data) {
+int fc_wcp_send_block(unsigned long port, uint32_t *size, uint8_t *data) {
     unsigned long i;
     for (i = 0; i < *size; ++i) {
         if (fc_wcp_send_int8(port, data[i]) != 0) {
@@ -45,10 +45,10 @@ int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data) {
     }
     return 0;
 }
-int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data) {
+int fc_wcp_read_block(unsigned long port, uint32_t *size, uint8_t *data) {
     unsigned long i;
     for (i = 0; i < *size; ++i) {
-        if (fc_wcp_send_int8(port, data + i) != 0) {
+        if (fc_wcp_send_int8(port, data[i]) != 0) {
             *size = i;
             return -1;
         }
@@ -60,9 +60,9 @@ int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header)
     int res;
     res = fc_wcp_send_int8(port, header->command);
     if (res != 0) return res;
-    if (header->command == FREECOPTER_WCP_COMMAND_SEND_DATA) {
+    if (header->command == FREECOPTER_WCP_COMMAND_SET_STATUS) {
         res = fc_wcp_send_int32(port, header->data_length);
-    } else if(header->read_write_command == FREECOPTER_WCP_COMMAND_RECV_DATA) {
+    } else if(header->command == FREECOPTER_WCP_COMMAND_GET_STATUS) {
         res = fc_wcp_recv_int32(port, &(header->data_length));
     } else {
         return -1;
@@ -80,7 +80,7 @@ int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
     res = fc_wcp_trans_init(port, &header);
     if (res != 0) return res;
     buf = malloc(header.data_length);
-    res = fc_wcp_read_block(port, header.data_length, buf);
+    res = fc_wcp_read_block(port, &header.data_length, (uint8_t*)buf);
     if (res != 0) return res;
     if (status == NULL) status = buf;
     else {
@@ -99,6 +99,6 @@ int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
     header.data_length = sizeof(FREECOPTER_WCP_CHANNEL_T) * status->channel_n + 4;
     res = fc_wcp_trans_init(port, &header);
     if (res != 0) return res;
-    res = fc_wcp_write_block(port, header.data_length, status);
+    res = fc_wcp_send_block(port, &header.data_length, (uint8_t*)status);
     return res;
 }

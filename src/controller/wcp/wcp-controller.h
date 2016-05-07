@@ -15,7 +15,14 @@
 /*
  * WCP translate calls
  */
-int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header);
+ // private call
+//int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header);
+// int fc_wcp_send_int8(unsigned long port, uint8_t data);
+// int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
+// int fc_wcp_send_int32(unsigned long port, uint32_t data);
+// int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
+// int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data);
+// int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data);
 
 /*
  * protocol layer goes here
