@@ -8,6 +8,9 @@
 #include <stdint.h>
 #include <wcp.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /*
  * translation layer goes here
  */
@@ -34,5 +37,8 @@
 int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif //FREECOPTER_WCP_CONTROLLER_H
