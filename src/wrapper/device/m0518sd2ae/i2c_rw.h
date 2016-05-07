@@ -12,6 +12,7 @@
 // #define I2C_FLAG_WAITING_FLUSH      (1 << 1)
 //  Repeat old data, no matter wether I2C_FLAG_WAITING_FLUSH is set.
 #define I2C_FLAG_SEND_REPEAT        (1 << 2)
+#define I2C_FLAG_FORCE_FLUSH        (1 << 3)
 
 #define I2C_ERROR_LOCK_MUTEX_FAILED         -1
 #define I2C_ERROR_FLAG_FLUSH_IS_SET         -2
@@ -28,12 +29,12 @@ typedef struct {
     size_t pending_data_index;
     size_t pending_data_length;
     size_t pending_data_capcity;
-    
+
     char* next_data;
     size_t next_data_length;
     size_t next_data_capcity;
     mutex next_data_mutex;
-    
+
     uint32_t flag;
 } I2C_SEND_T;
 
@@ -41,12 +42,12 @@ typedef struct {
     char* pending_data_buf;
     size_t pending_data_index;
     size_t pending_data_capcity;
-    
+
     char* recv_data_buf;
     size_t recv_data_length;
     size_t recv_data_capcity;
     mutex recv_data_mutex;
-    
+
     uint32_t flag;
 } I2C_RECV_T;
 
@@ -56,10 +57,10 @@ void I2C_RECV_INIT(I2C_RECV_T* target, size_t buf_len);
 void I2C_SEND_RESET(I2C_SEND_T* target);
 void I2C_RECV_RESET(I2C_RECV_T* target);
 
-// len is the length of data, return with actual length sended.
-int I2C_Set_Send_Data(I2C_SEND_T* target, char* data, size_t* len);
-// l3n is the capcisy of buf, return with the received data length.
-int I2C_Get_Recv_Data(I2C_RECV_T* target, char* buf, size_t* len);
+// len is the length of data, return as actual length sended.
+int I2C_Set_Send_Data(I2C_SEND_T* target, uint8_t* data, size_t* len);
+// len is the capcisy of buf, return as the received data length.
+int I2C_Get_Recv_Data(I2C_RECV_T* target, uint8_t* buf, size_t* len);
 
 int I2C_Flush_Send_Data(I2C_SEND_T* target);
 int I2C_Flush_Recv_Data(I2C_RECV_T* target);

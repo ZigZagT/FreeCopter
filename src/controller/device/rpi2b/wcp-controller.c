@@ -35,19 +35,21 @@ int fc_wcp_recv_int32(unsigned long port, uint32_t *data) {
     }
     return 0;
 }
-int fc_wcp_send_block(unsigned long port, unsigned long size, uint8_t *data) {
+int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data) {
     unsigned long i;
-    for (i = 0; i < size; ++i) {
+    for (i = 0; i < *size; ++i) {
         if (fc_wcp_send_int8(port, data[i]) != 0) {
+            *size = i;
             return -1;
         }
     }
     return 0;
 }
-int fc_wcp_read_block(unsigned long port, unsigned long size, uint8_t *data) {
+int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data) {
     unsigned long i;
-    for (i = 0; i < size; ++i) {
+    for (i = 0; i < *size; ++i) {
         if (fc_wcp_send_int8(port, data + i) != 0) {
+            *size = i;
             return -1;
         }
     }

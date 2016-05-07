@@ -48,15 +48,15 @@ typedef struct {
 /*
  * WCP channel flag definitions
  */
-#define FREECOPTER_WCP_FLAG_CHANNEL_FORWARD                         (1 << 0)
-#define FREECOPTER_WCP_FLAG_CHANNEL_CONTROLLED                      (1 << 1)
+#define FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD                    0
+#define FREECOPTER_WCP_CHANNEL_SIGSOURCE_CONTROLLED                 1
 
 /*
  * WCP data structure definitions
  */
 typedef struct {
     uint32_t name;
-    uint32_t flag;
+    uint32_t signal_source;
 } FREECOPTER_WCP_CHANNEL_T;
 
 typedef struct {
@@ -64,4 +64,14 @@ typedef struct {
     FREECOPTER_WCP_CHANNEL_T channel[5];
 } FREECOPTER_WCP_STATUS_T;
 
+
+/*
+ * Basic translate functions used to implement translation function.
+ */
+int fc_wcp_send_int8(unsigned long port, uint8_t data);
+int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
+int fc_wcp_send_int32(unsigned long port, uint32_t data);
+int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
+int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data);
+int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data);
 #endif //FREECOPTER_WCP_H
