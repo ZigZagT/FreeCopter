@@ -62,6 +62,7 @@ Free Copter
 // sp for signal processor
 
 Free Copter
+|--docs
 |--tools
 `--src
    |--include
@@ -76,4 +77,4 @@ Free Copter
 ```
 > Generated From:  
 >  
-> (((wcp, fcapi, device)controller, (wcp, device)wrapper, include)src, tools)Free Copter;
+> (((wcp, fcapi, device)controller, (wcp, device)wrapper, include)src, tools, docs)Free Copter;

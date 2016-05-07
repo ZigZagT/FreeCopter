@@ -9,44 +9,28 @@
 #include <wcp.h>
 
 /*
- * translation layer goes here
+ * The version of WCP on MCU is STATU MACHINE
  */
 
-/*
- * Basic translate functions used to implement translation function.
- */
-int fc_wcp_send_int8(unsigned long port, uint8_t data);
-int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
-int fc_wcp_send_int32(unsigned long port, uint32_t data);
-int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
-int fc_wcp_send_block(unsigned long port, unsigned long size, uint8_t *data);
-int fc_wcp_read_block(unsigned long port, unsigned long size, uint8_t *data);
-/*
- * WCP translate calls
- */
-int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header);
+#define FREECOPTER_WCP_STATUS_TRANSFER_IDLE                             1
+#define FREECOPTER_WCP_STATUS_TRANSFER_RECV_HEADER                      2
+#define FREECOPTER_WCP_STATUS_TRANSFER_SEND_HEADER                      3
+#define FREECOPTER_WCP_STATUS_TRANSFER_RECV                             4
+#define FREECOPTER_WCP_STATUS_TRANSFER_SEND                             5
 
-/*
- * protocol layer goes here
- */
-/*
- * WCP calls
- */
-//int fc_wcp_call(unsigned long port, uint32_t command, unsigned long data);
-int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
-int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
+extern uint8_t fc_wcp_status_transfer;
+extern FREECOPTER_WCP_TRANS_HEADER_T fc_wcp_status_transfer_header;
+extern uint32_t fc_wcp_status_transfer_progress;
+extern uint32_t fc_wcp_status_timeout_count;
+extern uint32_t fc_wcp_status_timeout_reload;
 
-int fc_wcp_refresh_status();
-int fc_wcp_current_command
-current_status
+extern FREECOPTER_WCP_STATUS_T fc_wcp_status_channels;
+extern uint32_t fc_wcp_status_channels_control_expires;
+extern uint32_t fc_wcp_status_channels_control_expires_reload;
 
-receive_header
-receive_status
-send_status
-
-struct current_command_status
-fc_wcp_flag_timedout
-
-!! write_timeout
+int fc_wcp_reset_transfer_status();
+int fc_wcp_reset_channel_status();
+int fc_wcp_update_channel_status(unsigned long);
+int fc_wcp_loop();
 
 #endif //FREECOPTER_WCP_WRAPPER_H
