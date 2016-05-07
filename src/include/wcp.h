@@ -56,12 +56,13 @@ typedef struct {
  */
 typedef struct {
     uint32_t name;
+    uint32_t value;
     uint32_t signal_source;
 } FREECOPTER_WCP_CHANNEL_T;
 
 typedef struct {
     uint32_t channel_n;
-    FREECOPTER_WCP_CHANNEL_T channel[5];
+    FREECOPTER_WCP_CHANNEL_T channel[6];
 } FREECOPTER_WCP_STATUS_T;
 
 
