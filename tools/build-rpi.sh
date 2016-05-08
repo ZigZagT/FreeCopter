@@ -23,26 +23,25 @@ INCLUDE="$PROJECT_DIR/src/include $PROJECT_DIR/src/controller/wcp $PROJECT_DIR/s
 printf '%s\n' "${INCLUDE[@]}"
 printf "\n"
 
-BUILD="gcc -o build/c.o -c -std=c99"
+NAME=0
+BUILD="gcc -c -std=c99"
 for d in $INCLUDE; do
     BUILD="$BUILD -I$d"
 done
 for f in $SOURCE_C; do
-    BUILD="$BUILD $f"
+    ((++NAME))
+    $BUILD -o build/$NAME.o $f
 done
-printf "build with command: \n%s\n\n" "$BUILD"
-$BUILD
 
-BUILD="gcc -o build/cpp.o -c -std=c++11"
+BUILD="gcc -c -std=c++11"
 for d in $INCLUDE; do
     BUILD="$BUILD -I$d"
 done
 for f in $SOURCE_CPP; do
-    BUILD="$BUILD $f"
+    ((++NAME))
+    $BUILD -o build/$NAME.o $f
 done
-printf "build with command: \n%s\n\n" "$BUILD"
-$BUILD
 
-BUILD="gcc -o build/out build/c.o build/cpp.o"
+BUILD="gcc -o build/out build/*.o -lstdc++"
 printf "build with command: \n%s\n\n" "$BUILD"
 $BUILD
