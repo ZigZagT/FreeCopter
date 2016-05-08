@@ -142,7 +142,7 @@ static inline __s32 i2c_smbus_write_i2c_block_data(int file, __u8 command,
 /*
  * RPI I2C functions
  */
-int fc_rpi_i2c_open(char* filename, uint8_t addr) {
+int rpi_i2c_open(const char* filename, uint8_t addr) {
     int file_i2c;
     if ((file_i2c = open(filename, O_RDWR)) < 0)
 	{
