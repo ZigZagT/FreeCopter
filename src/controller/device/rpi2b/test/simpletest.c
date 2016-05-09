@@ -41,6 +41,9 @@ int main() {
                 } else {
                     printf("%d ", buffer[i]);
                 }
+                if (i % 24 == 0) {
+                    usleep(100);
+                }
             }
             if (temp) {
                 printf("\nread finished.\n");

@@ -24,7 +24,7 @@ printf '%s\n' "${INCLUDE[@]}"
 printf "\n"
 
 NAME=0
-BUILD="gcc -c -std=c99"
+BUILD="gcc -c -std=gnu99"
 for d in $INCLUDE; do
     BUILD="$BUILD -I$d"
 done
