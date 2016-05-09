@@ -1,47 +1,74 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR/..
-echo "project directory: `pwd`"
 PROJECT_DIR="`pwd`"
 
 if [ ! -d build ]; then
-    echo "create build directory to store output files."
+    mkdir build
+else
+    rm -rf build
     mkdir build
 fi
 
-printf "\n"
-echo "detect source: "
-SOURCE_C=$(find src/controller/device/rpi2b | grep '.c$')
-SOURCE_CPP=$(find src/controller/device/rpi2b | grep '.cpp$')
+DIR="$PROJECT_DIR/src/controller/device/rpi2b"
+
+printf "\ndetect source: \n"
+SOURCE_C=$(find $DIR -name "*.c")
+SOURCE_CPP=$(find $DIR -name "*.cpp")
 printf '%s\n' "${SOURCE_C[@]}"
 printf '%s\n' "${SOURCE_CPP[@]}"
-printf "\n"
 
-echo "use include directory: "
-INCLUDE="$PROJECT_DIR/src/include $PROJECT_DIR/src/controller/wcp $PROJECT_DIR/src/controller/device/rpi2b"
+printf "\nuse include directory: \n"
+INCLUDE="$PROJECT_DIR/src/include  $PROJECT_DIR/src/controller/wcp   $PROJECT_DIR/src/controller/device/rpi2b"
+INCLUDE=($INCLUDE)
 
 printf '%s\n' "${INCLUDE[@]}"
 printf "\n"
 
-NAME=0
 BUILD="gcc -c -std=gnu99"
-for d in $INCLUDE; do
+for d in "${INCLUDE[@]}"; do
     BUILD="$BUILD -I$d"
 done
 for f in $SOURCE_C; do
-    ((++NAME))
-    $BUILD -o build/$NAME.o $f
+    printf "build $(basename -s .c $f).o\n"
+    $BUILD -o build/$(basename -s .c $f).o $f
 done
 
 BUILD="gcc -c -std=c++11"
-for d in $INCLUDE; do
+for d in "${INCLUDE[@]}"; do
     BUILD="$BUILD -I$d"
 done
 for f in $SOURCE_CPP; do
-    ((++NAME))
-    $BUILD -o build/$NAME.o $f
+    printf "build $(basename -s .cpp $f).o\n"
+    $BUILD -o build/$(basename -s .cpp $f).o $f
+done
+printf "\n"
+
+TARGET=""
+SOURCE_C=$(find $DIR/test -name "*.c")
+for f in $SOURCE_C; do
+    TARGET="$TARGET `basename -s .c $f`"
+done
+SOURCE_CPP=$(find $DIR/test -name "*.cpp")
+for f in $SOURCE_CPP; do
+    TARGET="$TARGET `basename -s .cpp $f`"
 done
 
-BUILD="gcc -o build/out build/*.o -lstdc++"
-printf "build with command: \n%s\n\n" "$BUILD"
-$BUILD
+SOURCE=""
+SOURCE_C=$(find $DIR -name "*.c" -not -path "$DIR/test/*")
+for f in $SOURCE_C; do
+    SOURCE="$SOURCE `basename -s .c $f`"
+done
+SOURCE_CPP=$(find $DIR -name "*.cpp" -not -path "$DIR/test/*")
+for f in $SOURCE_CPP; do
+    SOURCE="$SOURCE `basename -s .cpp $f`"
+done
+
+BUILD="gcc -lstdc++"
+for f in $SOURCE; do
+    BUILD="$BUILD build/$f.o"
+done
+for f in $TARGET; do
+    printf "build target %s\n" "$f";
+    $BUILD build/$f.o -o build/$f
+done
