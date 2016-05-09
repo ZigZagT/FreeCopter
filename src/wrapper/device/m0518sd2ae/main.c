@@ -111,9 +111,15 @@ void PWM0_IRQHandler(void) {
             }
 
             if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
+                FREECOPTER_WCP_CHANNEL_T * channel = &fc_wcp_status_channels.channel[index / 2];
                 BPWM_SET_CNR(BPWM0, index, PWM_Cycle_Per_Period);
-                BPWM_SET_CMR(BPWM0, index, high_period);
-                fc_wcp_status_channels.channel[index / 2].value = value1000;
+                if (channel->signal_source == FREECOPTER_WCP_CHANNEL_SIGSOURCE_CONTROLLED) {
+                    BPWM_SET_CMR(BPWM0, index, (channel->value * (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound)) / 1000 + PWM_Cycle_Low_Bound);
+                } else {
+                    BPWM_SET_CMR(BPWM0, index, high_period);
+                    channel->value = value1000;
+                }
+
             }
         }
     }
@@ -269,10 +275,15 @@ void PWM1_IRQHandler(void) {
             }
 
             if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
-                BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
-                BPWM_SET_CMR(BPWM1, index, high_period);
 
-                fc_wcp_status_channels.channel[index / 2 + 3].value = ((high_period - PWM_Cycle_Low_Bound) * 1000) / (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound);
+                FREECOPTER_WCP_CHANNEL_T * channel = &fc_wcp_status_channels.channel[index / 2 + 3];
+                BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
+                if (channel->signal_source == FREECOPTER_WCP_CHANNEL_SIGSOURCE_CONTROLLED) {
+                    BPWM_SET_CMR(BPWM1, index, (channel->value * (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound)) / 1000 + PWM_Cycle_Low_Bound);
+                } else {
+                    BPWM_SET_CMR(BPWM1, index, high_period);
+                    channel->value = value1000;
+                }
             }
         }
     }
