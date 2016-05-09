@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <fcntl.h>                              //Needed for I2C port
-#include <sys/ioctl.h>                  //Needed for I2C port
+#include <fcntl.h>
+#include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 #include <linux/i2c.h>
 
