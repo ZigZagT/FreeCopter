@@ -34,6 +34,7 @@ int fc_wcp_update_channel_status(unsigned long);
 int fc_wcp_loop();
 
 void inline fc_wcp_timeout_reload();
+void inline fc_wcp_control_expires_reload();
 int fc_wcp_send_data(unsigned long args);
 int fc_wcp_recv_data(unsigned long args);
 

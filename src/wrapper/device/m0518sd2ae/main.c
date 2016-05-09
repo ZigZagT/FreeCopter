@@ -580,11 +580,11 @@ void I2C_INIT(void)
     memset(&fc_wcp_status_transfer_header, 0, sizeof(fc_wcp_status_transfer_header));
     fc_wcp_status_transfer_progress = 0;
 
-    fc_wcp_status_timeout_count = 10000;
-    fc_wcp_status_timeout_reload = 10000;
+    fc_wcp_status_timeout_count = 0x0000ffff;
+    fc_wcp_status_timeout_reload = 0x0000ffff;
 
-    fc_wcp_status_channels_control_expires = 1000000;
-    fc_wcp_status_channels_control_expires = 1000000;
+    fc_wcp_status_channels_control_expires = 0x0000ffff;
+    fc_wcp_status_channels_control_expires_reload  = 0x0000ffff;
     memset(&fc_wcp_status_channels, 0, sizeof(fc_wcp_status_channels));
 
     I2C_RESET();
@@ -593,7 +593,7 @@ void I2C_INIT(void)
 void I2C_Slave_Go(I2C_T* port, uint32_t status) {
     uint8_t temp_data;
     uint32_t temp;
-    fc_wcp_pre_send_data_args_t send_args = {status, &I2C_Send_Control, port, &temp_data};
+    fc_wcp_send_recv_data_args_t send_args = {status, NULL, port, &temp_data};
     int res;
 
     #if defined(DEBUG)
@@ -630,10 +630,11 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
         case I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK:
         case I2C_STATUS_SLAVE_SEND_ADDR_ACK:
         case I2C_STATUS_SLAVE_SEND_DATA_ACK:
+        send_args.target = &I2C_Send_Control;
         res = fc_wcp_send_data((unsigned long)&send_args);
         I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
-        if (status == I2C_NOTICE_LAST_DATA_SENT) {
-            printf("I2C_NOTICE_LAST_DATA_SENT occurs\n");
+        if (status == I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK) {
+            printf("I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK occurs\n");
         }
         break;
 
@@ -690,7 +691,7 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
             break;
         }
         I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
-        printf("data %X received, progress %d, status %d.\n", temp_data, fc_wcp_status_transfer_progress, fc_wcp_status_transfer);
+        //printf("data %X received, progress %d, status %d.\n", temp_data, fc_wcp_status_transfer_progress, fc_wcp_status_transfer);
         break;
 
         case I2C_STATUS_SLAVE_RECV_ARBI_LOST:
@@ -755,7 +756,7 @@ int32_t main(void)
     //printf("press any key to get status message\n");
     #endif
     while (1) {
-     //   fc_wcp_loop();
+        fc_wcp_loop();
     //     if (I2C_TEST_FLAG(&I2C_Recv_Control, I2C_FLAG_FLUSH)) {
     //
     //         I2C_Get_Recv_Data(&I2C_Recv_Control, buf + 7, &buf_len);
