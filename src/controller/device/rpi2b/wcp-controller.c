@@ -5,6 +5,7 @@
 #include <i2c-rpi.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int fc_wcp_send_int8(unsigned long port, uint8_t data) {
     return rpi_i2c_write_byte(port, data);
@@ -59,7 +60,10 @@ int fc_wcp_read_block(unsigned long port, uint32_t *size, uint8_t *data) {
 int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header) {
     int res;
     res = fc_wcp_send_int8(port, header->command);
-    if (res != 0) return res;
+    if (res != 0) {
+        printf("fc_wcp_send_int8 failed\n");
+        return res;
+    }
     if (header->command == FREECOPTER_WCP_COMMAND_SET_STATUS) {
         res = fc_wcp_send_int32(port, header->data_length);
     } else if(header->command == FREECOPTER_WCP_COMMAND_GET_STATUS) {
@@ -78,7 +82,10 @@ int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
 
     header.command = FREECOPTER_WCP_COMMAND_GET_STATUS;
     res = fc_wcp_trans_init(port, &header);
-    if (res != 0) return res;
+    if (res != 0) {
+        printf("get status fc_wcp_trans_init failed\n");
+        return res;
+    }
     buf = malloc(header.data_length);
     res = fc_wcp_read_block(port, &header.data_length, (uint8_t*)buf);
     if (res != 0) return res;

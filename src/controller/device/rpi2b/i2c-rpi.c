@@ -150,6 +150,12 @@ int rpi_i2c_open(const char* filename, uint8_t addr) {
 		printf("Failed to open the i2c bus");
 		return -1;
 	}
+    if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
+	{
+		printf("Failed to acquire bus access and/or talk to slave.\n");
+		//ERROR HANDLING; you can check errno to see what went wrong
+		return -1;
+	}
     return file_i2c;
 }
 int rpi_i2c_read_byte(int file, uint8_t *data) {
@@ -159,5 +165,5 @@ int rpi_i2c_read_byte(int file, uint8_t *data) {
     return res;
 }
 int rpi_i2c_write_byte(int file, uint8_t data) {
-    return i2c_smbus_access(file,I2C_SMBUS_WRITE,data,I2C_SMBUS_BYTE,NULL);
+    return i2c_smbus_write_byte(file, data);
 }
