@@ -5,10 +5,10 @@
 #include "i2c_rw.h"
 
 #define __length__      200
-static char __send_pending[__length__];
-static char __send_next[__length__];
-static char __recv_pending[__length__];
-static char __recv_fin[__length__];
+static uint8_t __send_pending[__length__];
+static uint8_t __send_next[__length__];
+static uint8_t __recv_pending[__length__];
+static uint8_t __recv_fin[__length__];
 
 void I2C_SEND_INIT(I2C_SEND_T* target, uint32_t buf_len) {
     memset(target, 0, sizeof(I2C_SEND_T));

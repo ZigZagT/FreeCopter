@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wcp-wrapper.h>
+#include "wcp-helper.h"
 #include "M0518.h"
 #include "define.h"
 #include "i2c_rw.h"
@@ -563,9 +564,9 @@ void I2C_RESET(void) {
     I2C_SET_FLAG(&I2C_Recv_Control, I2C_FLAG_FORCE_FLUSH);
 
     /* Enable I2C interrupt */
+
     I2C_EnableInt(I2C0);
     NVIC_EnableIRQ(I2C0_IRQn);
-
     I2C_SET_CONTROL_REG(I2C0, I2C_I2CON_SI_AA);
 
 }
@@ -592,15 +593,16 @@ void I2C_INIT(void)
 void I2C_Slave_Go(I2C_T* port, uint32_t status) {
     uint8_t temp_data;
     uint32_t temp;
+    fc_wcp_pre_send_data_args_t send_args = {status, &I2C_Send_Control, port, &temp_data};
     int res;
 
     #if defined(DEBUG)
-    //printf("I2C_Slave_Go!\n");
+    printf("I2C_Slave_Go 0x%X!\n", status);
     #endif
 
-    if(status != 0x60 && status != 0x80 && status != 0xa0) {
-        printf("I2C status 0x%X\n", status);
-    }
+    // if(status != 0x60 && status != 0x80 && status != 0xa0 && status != 0xf8) {
+    //     printf("I2C status 0x%X\n", status);
+    // }
     switch (status) {
         case I2C_STATUS_SLAVE_RESTART_STOP:       // slave receive finished
         //I2C_Flush_Recv_Data(&I2C_Recv_Control);
@@ -624,43 +626,14 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
         // I2C_Flush_Send_Data(&I2C_Send_Control);
         // break;
 
-        case I2C_STATUS_SLAVE_SEND_ADDR_ACK:
-        case I2C_STATUS_SLAVE_SEND_DATA_ACK:
         case I2C_STATUS_SLAVE_SEND_DATA_NACK:
         case I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK:
-        res = I2C_Send_Byte(&I2C_Send_Control, port, &temp_data);
-        ++fc_wcp_status_transfer_progress;
-        fc_wcp_status_timeout_count = fc_wcp_status_timeout_reload;
-
-        switch (fc_wcp_status_transfer) {
-
-            case FREECOPTER_WCP_STATUS_TRANSFER_SEND_HEADER:
-            if(fc_wcp_status_transfer_progress == 4) {
-                fc_wcp_status_transfer_progress = 0;
-                fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_SEND;
-
-                temp = sizeof(fc_wcp_status_channels);
-                I2C_Set_Send_Data(&I2C_Send_Control, (uint8_t*)&fc_wcp_status_channels, &temp);
-                I2C_Flush_Send_Data(&I2C_Send_Control);
-            }
-            break;
-            case FREECOPTER_WCP_STATUS_TRANSFER_SEND:
-            if(fc_wcp_status_transfer_progress == fc_wcp_status_transfer_header.data_length) {
-                fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
-            }
-            break;
-            case FREECOPTER_WCP_STATUS_TRANSFER_IDLE:
-            case FREECOPTER_WCP_STATUS_TRANSFER_RECV:
-            fc_log("sending in recv/idle status, unknow behavior!");
-            break;
-            default:
-            fc_log("fc_wcp_status_transfer not set");
-            break;
-        }
-        if ( res == I2C_NOTICE_LAST_DATA_SENT) {
-            I2C_SET_CONTROL_REG(port, I2C_I2CON_SI);
-        } else {
-            I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
+        case I2C_STATUS_SLAVE_SEND_ADDR_ACK:
+        case I2C_STATUS_SLAVE_SEND_DATA_ACK:
+        res = fc_wcp_send_data((unsigned long)&send_args);
+        I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
+        if (status == I2C_NOTICE_LAST_DATA_SENT) {
+            printf("I2C_NOTICE_LAST_DATA_SENT occurs\n");
         }
         break;
 
@@ -681,12 +654,14 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
             fc_wcp_status_transfer_header.command = temp_data;
             if (fc_wcp_status_transfer_header.command == FREECOPTER_WCP_COMMAND_SET_STATUS) {
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_RECV_HEADER;
-            } else {
+            } else if (fc_wcp_status_transfer_header.command == FREECOPTER_WCP_COMMAND_GET_STATUS) {
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_SEND_HEADER;
                 fc_wcp_status_transfer_header.data_length = sizeof(FREECOPTER_WCP_STATUS_T);
                 temp = 4;
                 I2C_Set_Send_Data(&I2C_Send_Control, (uint8_t*)&fc_wcp_status_transfer_header.data_length, &temp);
                 I2C_Flush_Send_Data(&I2C_Send_Control);
+            } else {
+                fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
             }
             I2C_RECV_RESET(&I2C_Recv_Control);
             I2C_SEND_RESET(&I2C_Send_Control);
@@ -715,6 +690,7 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
             break;
         }
         I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
+        printf("data %X received, progress %d, status %d.\n", temp_data, fc_wcp_status_transfer_progress, fc_wcp_status_transfer);
         break;
 
         case I2C_STATUS_SLAVE_RECV_ARBI_LOST:
@@ -741,7 +717,7 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
         case I2C_STATUS_MASTER_RECV_DATA_NACK:
 
         default:
-        printf("I2C status 0x%X\n", status);
+        //printf("I2C status 0x%X\n", status);
         I2C_RESET();
         break;
     }
@@ -778,9 +754,8 @@ int32_t main(void)
     //BPWM_SET_CMR(BPWM0, 1, 1500 * PWM_Cycle_Per_US);
     //printf("press any key to get status message\n");
     #endif
-
     while (1) {
-        fc_wcp_loop();
+     //   fc_wcp_loop();
     //     if (I2C_TEST_FLAG(&I2C_Recv_Control, I2C_FLAG_FLUSH)) {
     //
     //         I2C_Get_Recv_Data(&I2C_Recv_Control, buf + 7, &buf_len);
