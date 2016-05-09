@@ -56,7 +56,7 @@ int fc_wcp_loop() {
     if(fc_wcp_status_timeout_count == 0) {
         if (fc_wcp_status_transfer != FREECOPTER_WCP_STATUS_TRANSFER_IDLE) {
             Disable_I2C0_INT();
-            printf("wcp_loop timeout detected\n");
+            //printf("wcp_loop timeout detected\n");
             fc_wcp_reset_transfer_status();
             Enable_I2C0_INT();
         } else {
@@ -71,7 +71,7 @@ int fc_wcp_loop() {
     if(fc_wcp_status_channels_control_expires == 0) {
         if (control) {
             Disable_I2C0_INT();
-            printf("wcp_loop control expire detected\n");
+            //printf("wcp_loop control expire detected\n");
             fc_wcp_reset_channel_status();
             fc_wcp_reset_transfer_status();
             Enable_I2C0_INT();
