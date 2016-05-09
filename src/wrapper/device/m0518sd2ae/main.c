@@ -6,6 +6,7 @@
 #include "M0518.h"
 #include "define.h"
 #include "i2c_rw.h"
+#include "pwm-helper.h"
 
 // #define DEBUG                       1
 
@@ -97,22 +98,23 @@ void PWM0_IRQHandler(void) {
         high_period = rising_data - falling_data;
         low_period = 0x10000 - rising_data;
         total_period = high_period + low_period;
-        if (high_period < PWM_Cycle_Low_Bound && high_period >= PWM_Cycle_Low_Bound_Limit) {
-            PWM_Cycle_Low_Bound = high_period;
-        }
-        if (high_period > PWM_Cycle_Hi_Bound && high_period <= PWM_Cycle_Hi_Bound_Limit) {
-            PWM_Cycle_Hi_Bound = high_period;
-        }
-        if (total_period > PWM_Cycle_Per_Period && total_period <= PWM_Cycle_Per_Period_Limit) {
-            PWM_Cycle_Per_Period = total_period;
-        }
+        int value1000 = ((high_period - PWM_Cycle_Low_Bound) * 1000) / (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound);
+        if (pwm_channel_value_check_dither((index / 2), value1000) == 0) {
+            if (high_period < PWM_Cycle_Low_Bound && high_period >= PWM_Cycle_Low_Bound_Limit) {
+                PWM_Cycle_Low_Bound = high_period;
+            }
+            if (high_period > PWM_Cycle_Hi_Bound && high_period <= PWM_Cycle_Hi_Bound_Limit) {
+                PWM_Cycle_Hi_Bound = high_period;
+            }
+            if (total_period > PWM_Cycle_Per_Period && total_period <= PWM_Cycle_Per_Period_Limit) {
+                PWM_Cycle_Per_Period = total_period;
+            }
 
-        if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
-
-            BPWM_SET_CNR(BPWM0, index, PWM_Cycle_Per_Period);
-            BPWM_SET_CMR(BPWM0, index, high_period);
-
-            fc_wcp_status_channels.channel[index / 2].value = (high_period * 1000) / PWM_Cycle_Per_Period;
+            if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
+                BPWM_SET_CNR(BPWM0, index, PWM_Cycle_Per_Period);
+                BPWM_SET_CMR(BPWM0, index, high_period);
+                fc_wcp_status_channels.channel[index / 2].value = value1000;
+            }
         }
     }
     Enable_PWM0_INT();
@@ -254,21 +256,24 @@ void PWM1_IRQHandler(void) {
         high_period = rising_data - falling_data;
         low_period = 0x10000 - rising_data;
         total_period = high_period + low_period;
-        if (high_period < PWM_Cycle_Low_Bound && high_period >= PWM_Cycle_Low_Bound_Limit) {
-            PWM_Cycle_Low_Bound = high_period;
-        }
-        if (high_period > PWM_Cycle_Hi_Bound && high_period <= PWM_Cycle_Hi_Bound_Limit) {
-            PWM_Cycle_Hi_Bound = high_period;
-        }
-        if (total_period > PWM_Cycle_Per_Period && total_period <= PWM_Cycle_Per_Period_Limit) {
-            PWM_Cycle_Per_Period = total_period;
-        }
+        int value1000 = ((high_period - PWM_Cycle_Low_Bound) * 1000) / (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound);
+        if (pwm_channel_value_check_dither((index / 2 + 3), value1000) == 0) {
+            if (high_period < PWM_Cycle_Low_Bound && high_period >= PWM_Cycle_Low_Bound_Limit) {
+                PWM_Cycle_Low_Bound = high_period;
+            }
+            if (high_period > PWM_Cycle_Hi_Bound && high_period <= PWM_Cycle_Hi_Bound_Limit) {
+                PWM_Cycle_Hi_Bound = high_period;
+            }
+            if (total_period > PWM_Cycle_Per_Period && total_period <= PWM_Cycle_Per_Period_Limit) {
+                PWM_Cycle_Per_Period = total_period;
+            }
 
-        if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
-            BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
-            BPWM_SET_CMR(BPWM1, index, high_period);
+            if(high_period >= PWM_Cycle_Low_Bound && high_period <= PWM_Cycle_Hi_Bound) {
+                BPWM_SET_CNR(BPWM1, index, PWM_Cycle_Per_Period);
+                BPWM_SET_CMR(BPWM1, index, high_period);
 
-            fc_wcp_status_channels.channel[index / 2 + 3].value = (high_period * 1000) / PWM_Cycle_Per_Period;
+                fc_wcp_status_channels.channel[index / 2 + 3].value = ((high_period - PWM_Cycle_Low_Bound) * 1000) / (PWM_Cycle_Hi_Bound - PWM_Cycle_Low_Bound);
+            }
         }
     }
     Enable_PWM1_INT();
@@ -517,7 +522,7 @@ void PWM_INIT( void ) {
     fc_wcp_status_channels.channel[5].name = FREECOPTER_WCP_CHANNEL_USER2;
     fc_wcp_status_channels.channel[5].signal_source = FREECOPTER_WCP_CHANNEL_SIGSOURCE_FORWARD;
 
-
+    memset(&pwm_history, 0, sizeof(pwm_history));
 
     // init IRQ
     NVIC_EnableIRQ(PWM0_IRQn);

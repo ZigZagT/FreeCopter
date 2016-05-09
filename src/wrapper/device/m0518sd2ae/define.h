@@ -8,8 +8,8 @@
 #define PWM_LOW_BOUND_US            1200
 #define PWM_HI_BLUND_US             1800
 #define PWM_PERIOD_LIMIT_US         11000
-#define PWM_LOW_BOUND_LIMIT_US      900
-#define PWM_HI_BOUND_LIMIT_US       2200
+#define PWM_LOW_BOUND_LIMIT_US      1100
+#define PWM_HI_BOUND_LIMIT_US       1900
 #define PWM_GLOBAL_PRESCALE         5
 
 #define Enable_PWM0_INT()       (PWM0->CAPIEN |= (0x15 << 8))
