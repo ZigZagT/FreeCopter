@@ -596,11 +596,11 @@ void I2C_INIT(void)
     memset(&fc_wcp_status_transfer_header, 0, sizeof(fc_wcp_status_transfer_header));
     fc_wcp_status_transfer_progress = 0;
 
-    fc_wcp_status_timeout_count = 0x0000ffff;
-    fc_wcp_status_timeout_reload = 0x0000ffff;
+    fc_wcp_status_timeout_count = I2C_STATUS_TIMEOUT_VALUE;
+    fc_wcp_status_timeout_reload = I2C_STATUS_TIMEOUT_VALUE;
 
-    fc_wcp_status_channels_control_expires = 0x0000ffff;
-    fc_wcp_status_channels_control_expires_reload  = 0x0000ffff;
+    fc_wcp_status_channels_control_expires = I2C_STATUS_CONTROL_EXPIRE_VALUE;
+    fc_wcp_status_channels_control_expires_reload  = I2C_STATUS_CONTROL_EXPIRE_VALUE;
     memset(&fc_wcp_status_channels, 0, sizeof(fc_wcp_status_channels));
 
     I2C_RESET();
@@ -610,7 +610,6 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
     uint8_t temp_data;
     uint32_t temp;
     fc_wcp_send_recv_data_args_t send_args = {status, NULL, port, &temp_data};
-    int res;
 
     #if defined(DEBUG)
     printf("I2C_Slave_Go 0x%X!\n", status);
@@ -647,7 +646,7 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
         case I2C_STATUS_SLAVE_SEND_ADDR_ACK:
         case I2C_STATUS_SLAVE_SEND_DATA_ACK:
         send_args.target = &I2C_Send_Control;
-        res = fc_wcp_send_data((unsigned long)&send_args);
+        fc_wcp_send_data((unsigned long)&send_args);
         I2C_SET_CONTROL_REG(port, I2C_I2CON_SI_AA);
         if (status == I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK) {
             printf("I2C_STATUS_SLAVE_SEND_LAST_DATA_ACK occurs\n");
