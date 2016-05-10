@@ -95,6 +95,7 @@ int fc_wcp_send_data(unsigned long fc_args) {
         break;
         default:
         // status ERROR
+        fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
         printf("send in invalid status\n");
         return -1;
 
