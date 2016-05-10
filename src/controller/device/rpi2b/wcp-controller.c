@@ -138,13 +138,10 @@ int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
     return res;
 }
 
-int fc_wcp_wrapper_reset(unsigned long port) {
-    int res = 0;
+void fc_wcp_wrapper_reset(unsigned long port) {
     // if the wrapper is in recv status, send byte request in wrong status will make it idle.
-    res += fc_wcp_recv_int8(port, NULL);
+    fc_wcp_recv_int8(port, NULL);
     // if the wrapper is in send status, write byte will reset its status.
     // command_none indecate to idle status.
-    res += fc_wcp_send_int8(port, FREECOPTER_WCP_COMMAND_NONE);
-
-    return res;
+    fc_wcp_send_int8(port, FREECOPTER_WCP_COMMAND_NONE);
 }

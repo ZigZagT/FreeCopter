@@ -33,7 +33,7 @@ int fc_wcp_read_block(unsigned long port, uint32_t *size, uint8_t *data);
 int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 
-int fc_wcp_wrapper_reset(unsigned long port);
+void fc_wcp_wrapper_reset(unsigned long port);
 
 #ifdef __cplusplus
 }
