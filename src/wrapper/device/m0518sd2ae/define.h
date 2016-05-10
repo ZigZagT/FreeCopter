@@ -24,8 +24,8 @@
 #define BPWM_GET_CMR(bpwm, u32ChannelNum) ((bpwm)->CMPBUF[(u32ChannelNum)])
 #define BPWM_GET_CNR(bpwm) ((bpwm)->PBUF)
 
-#define I2C_STATUS_TIMEOUT_VALUE                    0x0000ffff
-#define I2C_STATUS_CONTROL_EXPIRE_VALUE             0x000fffff
+#define I2C_STATUS_TIMEOUT_VALUE                    0x00003fff
+#define I2C_STATUS_CONTROL_EXPIRE_VALUE             0x0003ffff
 
 #define I2C_STATUS_BUS_ERROR                        0x00
 #define I2C_STATUS_BUS_FREE                         0xf8
