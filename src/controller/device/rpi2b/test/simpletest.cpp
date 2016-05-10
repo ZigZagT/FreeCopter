@@ -81,14 +81,22 @@ int main() {
                 }
             }
 
+        } else if (buffer[0] == 'r') {
+            if (fc_wcp_wrapper_reset(fd) != 0) {
+                printf("wrapper status rest failed\n");
+            } else {
+                printf("wrapper status rest success\n");
+            }
         }
         else {
 			printf(  "command:\n"
+                    "\th                       show this help message\n"
                     "\tr                       read byte\n"
                     "\tw <data>                write byte"
                     "\td                       dump status\n"
                     "\to                       reopen interface\n"
-                    "\ts <channel> <value>     set channel value\n");
+                    "\ts <channel> <value>     set channel value\n"
+                    "\tr                       reset wrapper transfer status\n");
 		}
 	}
 	return 0;
