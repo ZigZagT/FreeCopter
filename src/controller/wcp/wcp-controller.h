@@ -14,12 +14,12 @@ extern "C" {
 /*
  * translation layer goes here
  */
- int fc_wcp_send_int8(unsigned long port, uint8_t data);
- int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
- int fc_wcp_send_int32(unsigned long port, uint32_t data);
- int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
- int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data);
- int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data);
+ // int fc_wcp_send_int8(unsigned long port, uint8_t data);
+ // int fc_wcp_recv_int8(unsigned long port, uint8_t *data);
+ // int fc_wcp_send_int32(unsigned long port, uint32_t data);
+ // int fc_wcp_recv_int32(unsigned long port, uint32_t *data);
+ // int fc_wcp_send_block(unsigned long port, unsigned long *size, uint8_t *data);
+ // int fc_wcp_read_block(unsigned long port, unsigned long *size, uint8_t *data);
 /*
  * WCP translate calls
  */

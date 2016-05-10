@@ -26,9 +26,6 @@ typedef struct {
 
 
 
-
-
-
 /*
  * protocol layer goes here
  */
