@@ -20,14 +20,15 @@ int fc_wcp_recv_int8(unsigned long port, uint8_t *data) {
 }
 
 int fc_wcp_send_int32(unsigned long port, uint32_t data) {
-    uint8_t *send_data = (uint8_t*)&data;
-    int i;
-    for (i = 0; i < 4; ++i) {
-        if (fc_wcp_send_int8(port, send_data[i]) != 0) {
-            return -1;
-        }
-    }
-    return 0;
+    // uint8_t *send_data = (uint8_t*)&data;
+    // int i;
+    // for (i = 0; i < 4; ++i) {
+    //     if (fc_wcp_send_int8(port, send_data[i]) != 0) {
+    //         return -1;
+    //     }
+    // }
+    // return 0;
+    return rpi_i2c_write_block(port, 4, (uint8_t*)&data);
 }
 
 int fc_wcp_recv_int32(unsigned long port, uint32_t *data) {
@@ -48,8 +49,10 @@ int fc_wcp_send_block(unsigned long port, uint32_t *size, uint8_t *data) {
     //         return -1;
     //     }
     // }
+    // return 0;
     return rpi_i2c_write_block(port, *size, data);
 }
+
 int fc_wcp_read_block(unsigned long port, uint32_t *size, uint8_t *data) {
     unsigned long i;
     for (i = 0; i < *size; ++i) {
