@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// make get_status and set_status thread-safe
+extern void set_get_status_lock();
+extern void set_get_status_unlock();
+
 int fc_wcp_send_int8(unsigned long port, uint8_t data) {
     return rpi_i2c_write_byte(port, data);
 }
@@ -61,7 +65,7 @@ int fc_wcp_trans_init(unsigned long port, FREECOPTER_WCP_TRANS_HEADER_T *header)
     int res;
     res = fc_wcp_send_int8(port, header->command);
     if (res != 0) {
-        printf("fc_wcp_send_int8 failed\n");
+        // printf("fc_wcp_send_int8 failed\n");
         return res;
     }
     if (header->command == FREECOPTER_WCP_COMMAND_SET_STATUS) {
@@ -81,16 +85,23 @@ int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
     FREECOPTER_WCP_TRANS_HEADER_T header;
 
     header.command = FREECOPTER_WCP_COMMAND_GET_STATUS;
+    set_get_status_lock();
+
     res = fc_wcp_trans_init(port, &header);
     if (res != 0) {
-        printf("get status fc_wcp_trans_init failed\n");
+        // printf("get status fc_wcp_trans_init failed\n");
+        set_get_status_unlock();
         return res;
     } else {
-        //printf("data length: %d\n", header.data_length);
+        // printf("data length: %d\n", header.data_length);
     }
     buf = malloc(header.data_length);
     res = fc_wcp_read_block(port, &header.data_length, (uint8_t*)buf);
-    if (res != 0) return res;
+    if (res != 0) {
+        // printf("fc_wcp_read_block failed\n");
+        set_get_status_unlock();
+        return res;
+    }
     if (status == NULL) status = buf;
     else {
         truncated_channel_n = status->channel_n > buf->channel_n ? buf->channel_n : status->channel_n;
@@ -98,6 +109,7 @@ int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
         memcpy(status->channel, buf->channel, truncated_channel_n * sizeof(FREECOPTER_WCP_CHANNEL_T));
         free(buf);
     }
+    set_get_status_unlock();
     return res;
 }
 int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
@@ -106,8 +118,25 @@ int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
 
     header.command = FREECOPTER_WCP_COMMAND_SET_STATUS;
     header.data_length = sizeof(FREECOPTER_WCP_CHANNEL_T) * status->channel_n + 4;
+    set_get_status_lock();
+
     res = fc_wcp_trans_init(port, &header);
-    if (res != 0) return res;
+    if (res != 0) {
+        set_get_status_unlock();
+        return res;
+    }
     res = fc_wcp_send_block(port, &header.data_length, (uint8_t*)status);
+    set_get_status_unlock();
+    return res;
+}
+
+int fc_wcp_wrapper_reset(unsigned long port) {
+    int res = 0;
+    // if the wrapper is in recv status, send byte request in wrong status will make it idle.
+    res += fc_wcp_recv_int8(port, NULL);
+    // if the wrapper is in send status, write byte will reset its status.
+    // command_none indecate to idle status.
+    res += fc_wcp_send_int8(port, FREECOPTER_WCP_COMMAND_NONE);
+    
     return res;
 }

@@ -37,6 +37,8 @@ extern "C" {
 int fc_wcp_get_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status);
 
+int fc_wcp_wrapper_reset(unsigned long port);
+
 #ifdef __cplusplus
 }
 #endif
