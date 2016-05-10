@@ -677,6 +677,8 @@ void I2C_Slave_Go(I2C_T* port, uint32_t status) {
                 temp = 4;
                 I2C_Set_Send_Data(&I2C_Send_Control, (uint8_t*)&fc_wcp_status_transfer_header.data_length, &temp);
                 I2C_Flush_Send_Data(&I2C_Send_Control);
+            } else if (fc_wcp_status_transfer_header.command == FREECOPTER_WCP_COMMAND_NONE){
+                fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
             } else {
                 fc_wcp_status_transfer = FREECOPTER_WCP_STATUS_TRANSFER_IDLE;
             }
