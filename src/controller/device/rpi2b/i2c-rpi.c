@@ -169,3 +169,24 @@ int rpi_i2c_read_byte(int file, uint8_t *data) {
 int rpi_i2c_write_byte(int file, uint8_t data) {
     return i2c_smbus_write_byte(file, data);
 }
+
+int rpi_i2c_write_block(int file, uint32_t size, uint8_t *data) {
+    int res;
+    int i;
+
+    uint32_t len33, tail;
+    len33 = size / 33;
+    tail = size % 33;
+    res = 0;
+
+    for (int i = 0; i < len33; ++i) {
+        res += i2c_smbus_write_i2c_block_data(file, data[i * 33], 32, data + (i * 33) + 1);
+    }
+    if (tail == 0) {
+
+    } else if (tail == 1) {
+        res += rpi_i2c_write_byte(file, data[len33 * 33]);
+    } else {
+        res += i2c_smbus_write_i2c_block_data(file, data[len33 * 33], tail - 1, data + (len33 * 33) + 1);
+    }
+}

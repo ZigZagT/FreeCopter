@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdexcept>
 #include <curses.h>
+#include <string.h>
 
 using std::string;
 using std::cin;
@@ -61,7 +62,8 @@ void Listener() {
 
     while(true) {
         ss = std::ostringstream();
-        FREECOPTER_WCP_STATUS_T status_b = *status;
+        FREECOPTER_WCP_STATUS_T status_b;
+        memcpy(&status_b, status, sizeof(FREECOPTER_WCP_STATUS_T));
 
         switch (getchar()) {
             case 'a':

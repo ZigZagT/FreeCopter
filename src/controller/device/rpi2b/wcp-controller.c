@@ -41,14 +41,14 @@ int fc_wcp_recv_int32(unsigned long port, uint32_t *data) {
     return 0;
 }
 int fc_wcp_send_block(unsigned long port, uint32_t *size, uint8_t *data) {
-    unsigned long i;
-    for (i = 0; i < *size; ++i) {
-        if (fc_wcp_send_int8(port, data[i]) != 0) {
-            *size = i;
-            return -1;
-        }
-    }
-    return 0;
+    // unsigned long i;
+    // for (i = 0; i < *size; ++i) {
+    //     if (fc_wcp_send_int8(port, data[i]) != 0) {
+    //         *size = i;
+    //         return -1;
+    //     }
+    // }
+    return rpi_i2c_write_block(port, *size, data);
 }
 int fc_wcp_read_block(unsigned long port, uint32_t *size, uint8_t *data) {
     unsigned long i;
@@ -122,10 +122,15 @@ int fc_wcp_set_status(unsigned long port, FREECOPTER_WCP_STATUS_T *status) {
 
     res = fc_wcp_trans_init(port, &header);
     if (res != 0) {
+        printf("set status fc_wcp_trans_init failed\n");
         set_get_status_unlock();
         return res;
     }
+    printf("sending data...\n");
     res = fc_wcp_send_block(port, &header.data_length, (uint8_t*)status);
+    if (res != 0) {
+        printf("send block data failed. %d bytes sended\n", header.data_length);
+    }
     set_get_status_unlock();
     return res;
 }
@@ -137,6 +142,6 @@ int fc_wcp_wrapper_reset(unsigned long port) {
     // if the wrapper is in send status, write byte will reset its status.
     // command_none indecate to idle status.
     res += fc_wcp_send_int8(port, FREECOPTER_WCP_COMMAND_NONE);
-    
+
     return res;
 }

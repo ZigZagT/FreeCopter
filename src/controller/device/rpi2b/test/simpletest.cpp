@@ -77,7 +77,7 @@ int main() {
                 if (fc_wcp_set_status(fd, &status) != 0) {
                     printf("set status failed\n");
                 } else {
-                    printf("send status %d", dump_status(&status).c_str());
+                    printf("send status %s", dump_status(&status).c_str());
                 }
             }
 
