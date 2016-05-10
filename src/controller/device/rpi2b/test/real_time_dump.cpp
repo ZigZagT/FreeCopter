@@ -1,4 +1,3 @@
-#include <wcp-controller.h>
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
@@ -9,6 +8,7 @@
 #include <linux/i2c-dev.h>
 #include <linux/i2c.h>
 
+#include <wcp-controller.h>
 #include "i2c-rpi.h"
 #include "utilities.h"
 

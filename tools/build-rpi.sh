@@ -64,7 +64,7 @@ for f in $SOURCE_CPP; do
     SOURCE="$SOURCE `basename -s .cpp $f`"
 done
 
-BUILD="gcc -lstdc++"
+BUILD="gcc -lstdc++ -lZTunnel -lncurses"
 for f in $SOURCE; do
     BUILD="$BUILD build/$f.o"
 done

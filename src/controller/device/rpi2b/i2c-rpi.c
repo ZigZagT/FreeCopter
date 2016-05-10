@@ -161,7 +161,9 @@ int rpi_i2c_open(const char* filename, uint8_t addr) {
 int rpi_i2c_read_byte(int file, uint8_t *data) {
     union i2c_smbus_data s_data;
     int res = i2c_smbus_access(file,I2C_SMBUS_READ,0,I2C_SMBUS_BYTE,&s_data);
-    *data = 0x0FF & s_data.byte;
+    if (data != NULL) {
+        *data = 0x0FF & s_data.byte;
+    }
     return res;
 }
 int rpi_i2c_write_byte(int file, uint8_t data) {
