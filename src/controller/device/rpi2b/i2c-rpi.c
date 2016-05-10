@@ -142,7 +142,7 @@ static inline __s32 i2c_smbus_write_i2c_block_data(int file, __u8 command,
 /*
  * RPI I2C functions
  */
-int fc_rpi_i2c_init(char* filename, uint8_t addr) {
+int rpi_i2c_open(const char* filename, uint8_t addr) {
     int file_i2c;
     if ((file_i2c = open(filename, O_RDWR)) < 0)
 	{
@@ -150,14 +150,22 @@ int fc_rpi_i2c_init(char* filename, uint8_t addr) {
 		printf("Failed to open the i2c bus");
 		return -1;
 	}
+    if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
+	{
+		printf("Failed to acquire bus access and/or talk to slave.\n");
+		//ERROR HANDLING; you can check errno to see what went wrong
+		return -1;
+	}
     return file_i2c;
 }
-int fc_rpi_i2c_read_byte(int file, uint8_t *data) {
+int rpi_i2c_read_byte(int file, uint8_t *data) {
     union i2c_smbus_data s_data;
     int res = i2c_smbus_access(file,I2C_SMBUS_READ,0,I2C_SMBUS_BYTE,&s_data);
-    *data = 0x0FF & s_data.byte;
+    if (data != NULL) {
+        *data = 0x0FF & s_data.byte;
+    }
     return res;
 }
-int fc_rpi_i2c_write_byte(int file, uint8_t data) {
-    return i2c_smbus_access(file,I2C_SMBUS_WRITE,data,I2C_SMBUS_BYTE,NULL);
+int rpi_i2c_write_byte(int file, uint8_t data) {
+    return i2c_smbus_write_byte(file, data);
 }

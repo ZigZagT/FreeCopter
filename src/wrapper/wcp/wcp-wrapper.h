@@ -9,7 +9,7 @@
 #include <wcp.h>
 
 /*
- * The version of WCP on MCU is STATU MACHINE
+ * The WCP for wrapper is STATU MACHINE
  */
 
 #define FREECOPTER_WCP_STATUS_TRANSFER_IDLE                             1

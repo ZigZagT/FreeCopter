@@ -12,6 +12,7 @@
  */
 //#define FREECOPTER_WCP_COMMAND_SEND_DATA                            1
 //#define FREECOPTER_WCP_COMMAND_RECV_DATA                            2
+#define FREECOPTER_WCP_COMMAND_NONE                                 0
 #define FREECOPTER_WCP_COMMAND_GET_STATUS                           3
 #define FREECOPTER_WCP_COMMAND_SET_STATUS                           4
 /*
