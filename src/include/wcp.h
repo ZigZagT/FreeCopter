@@ -5,6 +5,11 @@
 #define FREECOPTER_WCP_H
 
 /*
+ * Type definitions
+ */
+ 
+
+/*
  * translation layer goes here
  */
 /*

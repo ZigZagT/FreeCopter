@@ -82,11 +82,8 @@ int main() {
             }
 
         } else if (buffer[0] == 'e') {
-            if (fc_wcp_wrapper_reset(fd) != 0) {
-                printf("wrapper status rest failed\n");
-            } else {
-                printf("wrapper status rest success\n");
-            }
+            printf("wrapper status reset...\n");
+            fc_wcp_wrapper_reset(fd);
         }
         else {
 			printf(  "command:\n"
