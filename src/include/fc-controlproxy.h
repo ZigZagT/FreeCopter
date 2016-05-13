@@ -1,14 +1,15 @@
 #ifndef FREECOPTER_CONTROL_PROXY_H
 #define FREECOPTER_CONTROL_PROXY_H
 
-
-#include <wcp.h>
 #include <stdint.h>
 #include <ratio>
 #include <stdint.h>
 #include <tuple>
+#include <type_traits>
 
+#include <wcp.h>
 #include <zthread.h>
+#include <fc-exception.h>
 
 namespace FreeCopter {
 
@@ -16,22 +17,32 @@ namespace FreeCopter {
     template <typename... Types>
     class type_tuple {
     public:
-        typedef std_tuple_type std::tuple<Types...>;
+        using std_tuple_type = std::tuple<Types...>;
+        using cstd_tuple_type = std::tuple<typename std::add_const<Types>::type...>;
+        using rstd_tuple_type = std::tuple<typename std::add_rvalue_reference<Types>::type...>;
+        using crstd_tuple_type = std::tuple<typename std::add_const<typename std::add_lvalue_reference<Types>::type>::type...>;
 
         template <size_t I>
-        typedef get_type<I> decltype(std::tuple_element<I, std_tuple_type>::type);
+        using get = typename std::tuple_element<I, std_tuple_type>::type;
+        static constexpr size_t size = sizeof...(Types);
     };
 
-    template <int I>
+    template <typename coordinate_value_types = type_tuple<double, double, double>, typename original_value_types = type_tuple<uint32_t, uint32_t, uint32_t, uint32_t>, int version = 0>
     class CoordinateSystem {
+    public:
+        template <size_t axis, typename... Args>
+        static typename coordinate_value_types::template get<axis> get_axis_value(typename std::add_const<typename std::add_lvalue_reference<Args>::type>::type... original_values);
+        template <size_t axis, typename... Args>
+        static typename original_value_types::template get<axis> get_original_value(typename std::add_const<typename std::add_lvalue_reference<Args>::type>::type... coordinate_values);
     };
 
-    template <typename CS = CoordinateSystem>
+    template <typename CS = CoordinateSystem<>>
     class ControlProxy {
     public:
-        typedef channel_name_t  uint32_t;
-        typedef channel_value_t uint32_t;
+        using channel_name_t = uint32_t;
+        using channel_value_t = uint32_t;
 
+        void set_attitude(attitude atti);
         ControlProxy();
         virtual ~ControlProxy() noexcept;
 
